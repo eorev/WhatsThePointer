@@ -32,7 +32,7 @@ export default class MenuScence extends Phaser.Scene {
 		//changes the style of the selected button to show it is selected
 		let selectedButton = 0;
 		let buttonStyle = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
-		let selectedButtonStyle = { font: "bold 32px Arial", fill: "#f00", boundsAlignH: "center", boundsAlignV: "middle" };
+		let selectedButtonStyle = { font: "bold 32px Arial", fill: "#5271FF", boundsAlignH: "center", boundsAlignV: "middle" };
 		playButton.setStyle(selectedButtonStyle);
 		optionsButton.setStyle(buttonStyle);
 		exitButton.setStyle(buttonStyle);
