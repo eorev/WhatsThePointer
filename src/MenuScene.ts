@@ -28,38 +28,66 @@ export default class MenuScence extends Phaser.Scene {
 		menuButtons.add(playButton); 
 		menuButtons.add(optionsButton); 
 		menuButtons.add(exitButton);
-		var currentSelection = playButton;
 
-		//creates the menu button selection
-		this.input.keyboard.on('keydown',  (event: any) => {
-			if (event.key == "ArrowDown") {
-				if (currentSelection == playButton) {
-					currentSelection = optionsButton;
-				} else if (currentSelection == optionsButton) {
-					currentSelection = exitButton;
+		//changes the style of the selected button to show it is selected
+		let selectedButton = 0;
+		let buttonStyle = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
+		let selectedButtonStyle = { font: "bold 32px Arial", fill: "#f00", boundsAlignH: "center", boundsAlignV: "middle" };
+		playButton.setStyle(selectedButtonStyle);
+		optionsButton.setStyle(buttonStyle);
+		exitButton.setStyle(buttonStyle);
+
+		//changes the selected button when the up or down arrow keys are pressed
+		this.input.keyboard.on('keydown', (event: any) => {
+			if (event.key === 'ArrowUp') {
+				if (selectedButton > 0) {
+					selectedButton--;
 				}
-			} else if (event.key == "ArrowUp") {
-				if (currentSelection == exitButton) {
-					currentSelection = optionsButton;
-				} else if (currentSelection == optionsButton) {
-					currentSelection = playButton;
+			} else if (event.key === 'ArrowDown') {
+				if (selectedButton < 2) {
+					selectedButton++;
 				}
-			} else if (event.key == "Enter") {
-				if (currentSelection == playButton) {
-					this.scene.start('game')
-					console.log("play")
-				} else if (currentSelection == optionsButton) {
-					this.scene.start('options')
-					console.log("options")
-				} else if (currentSelection == exitButton) {
-					this.scene.start('exit')
-					console.log("exit")
+			}
+
+			//changes the style of the selected button to show it is selected
+			switch (selectedButton) {
+				case 0:
+					playButton.setStyle(selectedButtonStyle);
+					optionsButton.setStyle(buttonStyle);
+					exitButton.setStyle(buttonStyle);
+					break;
+				case 1:
+					playButton.setStyle(buttonStyle);
+					optionsButton.setStyle(selectedButtonStyle);
+					exitButton.setStyle(buttonStyle);
+					break;
+				case 2:
+					playButton.setStyle(buttonStyle);
+					optionsButton.setStyle(buttonStyle);
+					exitButton.setStyle(selectedButtonStyle);
+					break;
+			}
+		});
+
+		//changes the scene when the enter key is pressed
+		this.input.keyboard.on('keydown', (event: any) => {
+			if (event.key === 'Enter') {
+				switch (selectedButton) {
+					case 0:
+						this.scene.start('game');
+						break;
+					case 1:
+						this.scene.start('options');
+						break;
+					case 2:
+						this.scene.start('exit');
+						break;
 				}
 			}
 		});
 	}
 
 	update() {
-		
+
 	}
 }
