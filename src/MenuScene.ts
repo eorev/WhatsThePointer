@@ -7,7 +7,6 @@ export default class MenuScence extends Phaser.Scene {
 
 	preload() {
 		this.load.image('background', 'https://picsum.photos/800/600')
-		this.load.image('logo', './logo.png')
 	}
 
 	create() {
@@ -15,10 +14,10 @@ export default class MenuScence extends Phaser.Scene {
 		//centers the image
 		background.setOrigin(0, 0)
 
-		let title = this.add.image(225, 0, 'logo')
-		title.setScale(0.75)
+		//creates title and centers it above the menu buttons
+		let title = this.add.text(200, 200, "What's the Point(er)?");
+		title.setStyle({ font: "bold 64px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" });
 		title.setOrigin(0, 0);
-
 
 		//creates the menu buttons
 		let menuButtons = this.add.group();
@@ -85,6 +84,44 @@ export default class MenuScence extends Phaser.Scene {
 				}
 			}
 		});
+
+		//allows the user to also hover over the game options and click to enter the scene
+		playButton.setInteractive();
+		playButton.on('pointerover', () => {
+			playButton.setStyle(selectedButtonStyle);
+			optionsButton.setStyle(buttonStyle);
+			exitButton.setStyle(buttonStyle);
+			selectedButton = 0;
+		});
+
+		playButton.on('pointerdown', () => {
+			this.scene.start('game');
+		});
+		
+		optionsButton.setInteractive();
+		optionsButton.on('pointerover', () => {
+			playButton.setStyle(buttonStyle);
+			optionsButton.setStyle(selectedButtonStyle);
+			exitButton.setStyle(buttonStyle);
+			selectedButton = 1;
+		});
+
+		optionsButton.on('pointerdown', () => {
+			this.scene.start('options');
+		});
+
+		exitButton.setInteractive();
+		exitButton.on('pointerover', () => {
+			playButton.setStyle(buttonStyle);
+			optionsButton.setStyle(buttonStyle);
+			exitButton.setStyle(selectedButtonStyle);
+			selectedButton = 2;
+		});
+
+		exitButton.on('pointerdown', () => {
+			this.scene.start('exit');
+		});
+
 	}
 
 	update() {

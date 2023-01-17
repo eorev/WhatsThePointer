@@ -16,11 +16,11 @@ export default class GameScene extends Phaser.Scene {
 
         //creates a list of ponds displayed left to right that the player can click on
         let ponds = this.add.group();
-        let pond1 = this.add.text(100, 100, 'Pond 1');
+        let pond1 = this.add.text(50, 100, 'Pond 1');
         let pond2 = this.add.text(200, 100, 'Pond 2');
-        let pond3 = this.add.text(300, 100, 'Pond 3');
-        let pond4 = this.add.text(400, 100, 'Pond 4');
-        let pond5 = this.add.text(500, 100, 'Pond 5');
+        let pond3 = this.add.text(350, 100, 'Pond 3');
+        let pond4 = this.add.text(500, 100, 'Pond 4');
+        let pond5 = this.add.text(650, 100, 'Pond 5');
         ponds.add(pond1);
         ponds.add(pond2);
         ponds.add(pond3);
