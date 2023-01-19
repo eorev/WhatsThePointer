@@ -1,6 +1,13 @@
 import Phaser from "phaser";
 
 export default class GameScene extends Phaser.Scene {
+
+    //score and question count
+    public score = 0;
+    public scoreText?: Phaser.GameObjects.Text
+    public questionCount = 0
+    public questionCountText?: Phaser.GameObjects.Text
+
     constructor() {
         super('game')
     }
@@ -87,6 +94,19 @@ export default class GameScene extends Phaser.Scene {
         pond5.on('pointerout', () => {
             pond5.setStyle(pondStyle);
         });
+
+        //score board
+        this.scoreText = this.add.text(16, 16, 'score: 0', {
+        fontSize: '32px',
+        color: '#000' })
+
+        //question count
+        this.questionCountText = this.add.text(16, 12, 'question #: 0', {
+        fontSize: '32px',
+        color: '#000' })
+
+    }
+
 
     }
 
