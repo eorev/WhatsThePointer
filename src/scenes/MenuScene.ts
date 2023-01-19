@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import MenuStyles from '../styles/MenuStyles'
 
 export default class MenuScence extends Phaser.Scene {
 	constructor() {
@@ -6,7 +7,7 @@ export default class MenuScence extends Phaser.Scene {
 	}
 
 	preload() {
-		this.load.image('background', 'https://picsum.photos/800/600')
+		this.load.image('background', "https://picsum.photos/800/600")
 	}
 
 	create() {
