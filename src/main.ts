@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 //import MenuScene from './scenes/MenuScene'
-import MenuScence from './MenuScene'
+import MenuScene from './MenuScene'
 import Pond1 from './Pond1'
 import GameScene from './GameScene'
 
@@ -13,7 +13,7 @@ const config: Phaser.Types.Core.GameConfig = {
 		width: 800,
 		height: 600,
 	},
-	scene: [MenuScence,GameScene,Pond1],
+	scene: [MenuScene,GameScene,Pond1],
 }
 
 export default new Phaser.Game(config)
