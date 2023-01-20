@@ -1,8 +1,8 @@
 import Phaser from 'phaser'
 //import MenuScene from './scenes/MenuScene'
-import MenuScene from './MenuScene'
+import MenuScene from './scenes/MenuScene'
 import Pond1 from './Pond1'
-import GameScene from './GameScene'
+import GameScene from './scenes/GameScene'
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
