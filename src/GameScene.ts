@@ -101,14 +101,14 @@ export default class GameScene extends Phaser.Scene {
         color: '#000' })
 
         //question count
-        this.questionCountText = this.add.text(16, 12, 'question #: 0', {
+        this.questionCountText = this.add.text(450, 16, 'question #: 0', {
         fontSize: '32px',
         color: '#000' })
 
     }
 
 
-    }
+    
 
     update() {
 
