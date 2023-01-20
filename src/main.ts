@@ -3,6 +3,7 @@ import Phaser from 'phaser'
 import MenuScene from './scenes/MenuScene'
 import Pond1 from './Pond1'
 import GameScene from './scenes/GameScene'
+import OptionsScene from './scenes/OptionsScene'
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
@@ -13,7 +14,7 @@ const config: Phaser.Types.Core.GameConfig = {
 		width: 800,
 		height: 600,
 	},
-	scene: [MenuScene,GameScene,Pond1],
+	scene: [MenuScene,GameScene,OptionsScene,Pond1],
 }
 
 export default new Phaser.Game(config)
