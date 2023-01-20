@@ -70,9 +70,4 @@ export default class Pond1 extends Phaser.Scene{
         })
 
     }
-
-    update(time: number, delta: number): void {
-        let counter = 0;
-
-    }
 }
