@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 import MenuStyles from '../styles/MenuStyles'
 
-export default class MenuScence extends Phaser.Scene {
+export default class MenuScene extends Phaser.Scene {
 	constructor() {
 		super('menu')
 	}

@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import MenuScence from './scenes/MenuScene'
+import MenuScene from './scenes/MenuScene'
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
@@ -10,7 +10,7 @@ const config: Phaser.Types.Core.GameConfig = {
 		width: 800,
 		height: 600,
 	},
-	scene: [MenuScence],
+	scene: [MenuScene],
 }
 
 export default new Phaser.Game(config)
