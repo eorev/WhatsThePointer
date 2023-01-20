@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import MenuStyles from '../styles/MenuStyles'
 
 export default class MenuScene extends Phaser.Scene {
 	constructor() {
@@ -6,7 +7,7 @@ export default class MenuScene extends Phaser.Scene {
 	}
 
 	preload() {
-		this.load.image('background', 'https://picsum.photos/800/600')
+		this.load.image('background', MenuStyles.background.url)
 	}
 
 	create() {
@@ -15,23 +16,22 @@ export default class MenuScene extends Phaser.Scene {
 		background.setOrigin(0, 0)
 
 		//creates title and centers it above the menu buttons
-		let title = this.add.text(200, 200, "What's the Point(er)?");
-		title.setStyle({ font: "bold 64px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" });
-		title.setOrigin(0, 0);
+		let title = this.add.text(MenuStyles.title.x, MenuStyles.title.y, MenuStyles.title.text);
+		title.setStyle(MenuStyles.title.style);
 
 		//creates the menu buttons
 		let menuButtons = this.add.group();
-		let playButton = this.add.text(200, 300, 'Play');
-		let optionsButton = this.add.text(200, 350, 'Options');
-		let exitButton = this.add.text(200, 400, 'Exit');
+		let playButton = this.add.text(MenuStyles.menuButtons.x, MenuStyles.menuButtons.y, 'Play');
+		let optionsButton = this.add.text(MenuStyles.menuButtons.x, MenuStyles.menuButtons.y + 50, 'Options');
+		let exitButton = this.add.text(MenuStyles.menuButtons.x, MenuStyles.menuButtons.y + 100, 'Exit');
 		menuButtons.add(playButton); 
 		menuButtons.add(optionsButton); 
 		menuButtons.add(exitButton);
 
 		//changes the style of the selected button to show it is selected
 		let selectedButton = 0;
-		let buttonStyle = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
-		let selectedButtonStyle = { font: "bold 32px Arial", fill: "#5271FF", boundsAlignH: "center", boundsAlignV: "middle" };
+		let buttonStyle = MenuStyles.menuButtons.style;
+		let selectedButtonStyle = MenuStyles.selectedButtonStyle;
 		playButton.setStyle(selectedButtonStyle);
 		optionsButton.setStyle(buttonStyle);
 		exitButton.setStyle(buttonStyle);
