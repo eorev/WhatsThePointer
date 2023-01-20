@@ -10,7 +10,7 @@ export default class MenuStyles {
     //title
     static title = {
         x: 100,
-        y: 200,
+        y: 100,
         text: "What's the Point(er)?",
         style: {
             font: "bold 64px Arial",
@@ -23,10 +23,10 @@ export default class MenuStyles {
     //menu buttons
     static menuButtons = {
         x: 100,
-        y: 300,
+        y: 200,
         text: ['Play', 'Options', 'Exit'],
         style: {
-            font: "bold 32px Arial",
+            font: "bold 48px Arial",
             fill: "#fff",
             boundsAlignH: "center",
             boundsAlignV: "middle",
@@ -39,7 +39,7 @@ export default class MenuStyles {
 
     //selected button style
     static selectedButtonStyle = {
-        font: "bold 32px Arial",
+        font: "bold 48px Arial",
         fill: "#5271FF",
         boundsAlignH: "center",
         boundsAlignV: "middle",
