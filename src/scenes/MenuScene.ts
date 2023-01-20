@@ -79,7 +79,7 @@ export default class MenuScene extends Phaser.Scene {
 						this.scene.start('options');
 						break;
 					case 2:
-						this.scene.start('exit');
+						window.close();
 						break;
 				}
 			}
@@ -119,7 +119,7 @@ export default class MenuScene extends Phaser.Scene {
 		});
 
 		exitButton.on('pointerdown', () => {
-			this.scene.start('exit');
+			window.close();
 		});
 
 	}
