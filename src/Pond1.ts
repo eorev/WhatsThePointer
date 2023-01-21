@@ -5,6 +5,7 @@ class Pond{
     fish:string;
     image:Phaser.GameObjects.Image;
 
+
     constructor(pond:string,fish:string,image:Phaser.GameObjects.Image){
         this.pond=pond;
         this.fish=fish;
@@ -13,6 +14,14 @@ class Pond{
 }
 
 export default class Pond1 extends Phaser.Scene{
+
+    //for score and question count
+    private score = 0
+    private scoreText?: Phaser.GameObjects.Text
+    private questionCount = 0
+    private questionCountText?: Phaser.GameObjects.Text
+
+
     constructor(){
         super('Pond1');
     }
@@ -24,23 +33,43 @@ export default class Pond1 extends Phaser.Scene{
     }
 
     create(){
+
+        let score = 0
+        let questionCount = 0
+
         let questions = ["If the fisher wants to catch the Moorish \nIdol, what pond do they need to go to?","If the fisher is at pond 2, what fish can \nthey catch?","If the fisher is at pond 1, what fish can\n they catch?"];
         let answers = ["Pond 3","Pennant Butterflyfish","Racoon Butterflyfish"];
         let counter = 0;
         let question = this.add.text(0,0,questions[counter]);
-        question.setFont("32px")
+        question.setFont("32px") 
+
+        //score board
+        this.scoreText = this.add.text(16, 450, 'score: 0', {
+        fontSize: '32px',
+        color: '#FFFFFF' })
+    
+        //question count
+        this.questionCountText = this.add.text(500, 450, 'question #: 0', {
+        fontSize: '32px',
+        color: '#FFFFFF' })
+
 
         let pond1 = this.add.text(225,150,"Pond 1");
         let rbfPond = new Pond("Pond 1","Racoon Butterflyfish",this.add.image(250,250,'RBF Pond'));
         rbfPond.image.setInteractive();
         rbfPond.image.on("pointerdown",()=>{
+
             if (rbfPond.fish===answers[counter] || rbfPond.pond===answers[counter]){
-                counter++;
+                counter++; 
+
+                score += 100           
+
                 question.setText(questions[counter]);
                 if (counter==3){
                     this.scene.start('game')
                 }
             }
+            this.scoreText?.setText('Score: '+ score)
         })
         
         let pond2 = this.add.text(475,150,"Pond 2");
