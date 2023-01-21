@@ -41,7 +41,7 @@ export default class Pond1 extends Phaser.Scene{
 
         let questions = [
             "If the fisher wants to catch the Moorish \nIdol, what pond do they need to go to?",
-            "If the fisher is at pond 2, what fish can \nthey catch?",
+            "If the fisher is at pond 2, what fish can\n they catch?",
             "If the fisher is at pond 1, what fish can\n they catch?"
         ];
         
@@ -51,16 +51,28 @@ export default class Pond1 extends Phaser.Scene{
             "Racoon Butterflyfish"
         ];
 
-
+        // ~ Evan
+        //field background
         let field = this.add.image(0,0,'field')
         field.setOrigin(0, 0)
 
+        //rock background behind question text
         let rocks = this.add.image(0,0,'rocks')
         rocks.setOrigin(0, 0)
+
+        //back button - returns to level select
+        let backBtn = this.add.text(8, 80, '<- Back');
+        backBtn.setInteractive();
+        backBtn.setColor("red")
+        backBtn.setFont("20px") 
+        backBtn.on('pointerdown', () => {
+            this.scene.start('game');
+        });
+        // ~~
     
 
         let counter = 0;
-        let question = this.add.text(2,6,questions[counter]);
+        let question = this.add.text(8,6,questions[counter]);
         question.setFont("32px") 
 
         //score board
