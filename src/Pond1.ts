@@ -30,6 +30,8 @@ export default class Pond1 extends Phaser.Scene{
         this.load.image('RBF Pond','assets/RBF_Pond.png');
         this.load.image('PBF Pond','assets/PBF_Pond.png');
         this.load.image('MI Pond','assets/MI_Pond.png');
+        this.load.image('field','assets/field.png');
+        this.load.image('rocks','assets/rocks.png');
     }
 
     create(){
@@ -37,19 +39,49 @@ export default class Pond1 extends Phaser.Scene{
         let score = 0
         let questionCount = 0
 
-        let questions = ["If the fisher wants to catch the Moorish \nIdol, what pond do they need to go to?","If the fisher is at pond 2, what fish can \nthey catch?","If the fisher is at pond 1, what fish can\n they catch?"];
-        let answers = ["Pond 3","Pennant Butterflyfish","Racoon Butterflyfish"];
+        let questions = [
+            "If the fisher wants to catch the Moorish \nIdol, what pond do they need to go to?",
+            "If the fisher is at pond 2, what fish can\n they catch?",
+            "If the fisher is at pond 1, what fish can\n they catch?"
+        ];
+        
+        let answers = [
+            "Pond 3",
+            "Pennant Butterflyfish",
+            "Racoon Butterflyfish"
+        ];
+
+        // ~ Evan
+        //field background
+        let field = this.add.image(0,0,'field')
+        field.setOrigin(0, 0)
+
+        //rock background behind question text
+        let rocks = this.add.image(0,0,'rocks')
+        rocks.setOrigin(0, 0)
+
+        //back button - returns to level select
+        let backBtn = this.add.text(8, 80, '<- Back');
+        backBtn.setInteractive();
+        backBtn.setColor("red")
+        backBtn.setFont("20px") 
+        backBtn.on('pointerdown', () => {
+            this.scene.start('game');
+        });
+        // ~~
+    
+
         let counter = 0;
-        let question = this.add.text(0,0,questions[counter]);
+        let question = this.add.text(8,6,questions[counter]);
         question.setFont("32px") 
 
         //score board
-        this.scoreText = this.add.text(16, 450, 'score: 0', {
+        this.scoreText = this.add.text(16, 550, 'score: 0', {
         fontSize: '32px',
         color: '#FFFFFF' })
     
         //question count
-        this.questionCountText = this.add.text(500, 450, 'question #: 0', {
+        this.questionCountText = this.add.text(575, 550, 'question #0', {
         fontSize: '32px',
         color: '#FFFFFF' })
 
@@ -85,8 +117,8 @@ export default class Pond1 extends Phaser.Scene{
             }
         })
         
-        let pond3 = this.add.text(350,400,"Pond 3");
-        let miPond = new Pond("Pond 3","Moorish Idol",this.add.image(375,500,'MI Pond'));
+        let pond3 = this.add.text(350,350,"Pond 3");
+        let miPond = new Pond("Pond 3","Moorish Idol",this.add.image(375,450,'MI Pond'));
         miPond.image.setInteractive();
         miPond.image.on("pointerdown",()=>{
             if (miPond.fish===answers[counter] || miPond.pond===answers[counter]){
