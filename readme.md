@@ -1,5 +1,5 @@
 # Whats The Point(er)
-> Pointer Learning Game made with React and Typescript
+> Pointer Learning Game made with Phaser and Typescript
 
 ## How to run
 
