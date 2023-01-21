@@ -22,6 +22,26 @@ export default class InstructionsScene extends Phaser.Scene {
         let instructionsStyle = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
         instructions.setStyle(instructionsStyle);
 
+        //exit button creation
+        let xButton = this.add.text(725, 25, 'X');
+
+        //allows user to click on the X
+        xButton.setInteractive();
+        xButton.on('pointerdown', () => {
+            this.scene.start('menu');
+        });
+
+        //changes the style of the X when hovered over
+        let xStyle = { font: "bold 50px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
+        let selectedXStyle = { font: "bold 50px Arial", fill: "#5271FF", boundsAlignH: "center", boundsAlignV: "middle" };
+        xButton.setStyle(xStyle);
+        xButton.on('pointerover', () => {
+            xButton.setStyle(selectedXStyle);
+        });
+        xButton.on('pointerout', () => {
+            xButton.setStyle(xStyle);
+        });
+
     }
 
     update() {
