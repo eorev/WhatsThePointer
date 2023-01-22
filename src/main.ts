@@ -1,7 +1,7 @@
 
 import Phaser from 'phaser'
 import MenuScene from './scenes/MenuScene'
-import Pond1 from './Pond1'
+import Pond1 from './scenes/Pond1'
 import GameScene from './scenes/GameScene'
 import InstructionsScene from './scenes/InstructionsScene'
 

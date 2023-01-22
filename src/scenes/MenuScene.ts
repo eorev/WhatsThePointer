@@ -22,10 +22,10 @@ export default class MenuScene extends Phaser.Scene {
 		//creates the menu buttons
 		let menuButtons = this.add.group();
     
-		let playButton = this.add.text(200, 300, 'Play');
-		let optionsButton = this.add.text(200, 350, 'Options');
-		let instructionsButton = this.add.text(200, 400, 'How to Play');
-		let exitButton = this.add.text(200, 450, 'Exit');
+		let playButton = this.add.text(MenuStyles.menuButtons.x, MenuStyles.menuButtons.y, 'Play');
+		let optionsButton = this.add.text(MenuStyles.menuButtons.x, MenuStyles.menuButtons.y + 50, 'Options');
+		let instructionsButton = this.add.text(MenuStyles.menuButtons.x, MenuStyles.menuButtons.y + 100, 'How to Play');
+		let exitButton = this.add.text(MenuStyles.menuButtons.x, MenuStyles.menuButtons.y + 150, 'Exit');
     
 		menuButtons.add(playButton); 
 		menuButtons.add(optionsButton); 

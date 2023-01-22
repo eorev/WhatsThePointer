@@ -1,4 +1,6 @@
 import Phaser from "phaser";
+import ScoreTracker from "../ScoreTracker";
+import GameScene from "./GameScene";
 
 class Pond{
     pond:string;
@@ -15,12 +17,6 @@ class Pond{
 
 export default class Pond1 extends Phaser.Scene{
 
-    //for score and question count
-    private score = 0
-    private scoreText?: Phaser.GameObjects.Text
-    private questionCount = 0
-    private questionCountText?: Phaser.GameObjects.Text
-
 
     constructor(){
         super('Pond1');
@@ -35,9 +31,6 @@ export default class Pond1 extends Phaser.Scene{
     }
 
     create(){
-
-        let score = 0
-        let questionCount = 0
 
         let questions = [
             "If the fisher wants to catch the Moorish \nIdol, what pond do they need to go to?",
@@ -76,15 +69,14 @@ export default class Pond1 extends Phaser.Scene{
         question.setFont("32px") 
 
         //score board
-        this.scoreText = this.add.text(16, 550, 'score: 0', {
+        let scoreText = this.add.text(16, 550, `Score: ${ScoreTracker.getScore()}`, {
         fontSize: '32px',
         color: '#FFFFFF' })
     
         //question count
-        this.questionCountText = this.add.text(575, 550, 'question #0', {
+        let questionCountText = this.add.text(600, 550, `Questions: ${ScoreTracker.getQuestionCount()}`, {
         fontSize: '32px',
         color: '#FFFFFF' })
-
 
         let pond1 = this.add.text(225,150,"Pond 1");
         let rbfPond = new Pond("Pond 1","Racoon Butterflyfish",this.add.image(250,250,'RBF Pond'));
@@ -94,14 +86,14 @@ export default class Pond1 extends Phaser.Scene{
             if (rbfPond.fish===answers[counter] || rbfPond.pond===answers[counter]){
                 counter++; 
 
-                score += 100           
+                ScoreTracker.addScore();
 
                 question.setText(questions[counter]);
                 if (counter==3){
                     this.scene.start('game')
                 }
             }
-            this.scoreText?.setText('Score: '+ score)
+            scoreText.setText(`Score: ${ScoreTracker.getScore()}`)
         })
         
         let pond2 = this.add.text(475,150,"Pond 2");
