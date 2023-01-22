@@ -82,12 +82,10 @@ export default class Pond1 extends Phaser.Scene{
         let rbfPond = new Pond("Pond 1","Racoon Butterflyfish",this.add.image(250,250,'RBF Pond'));
         rbfPond.image.setInteractive();
         rbfPond.image.on("pointerdown",()=>{
-
             if (rbfPond.fish===answers[counter] || rbfPond.pond===answers[counter]){
                 counter++; 
-
                 ScoreTracker.addScore();
-
+                ScoreTracker.addQuestion();
                 question.setText(questions[counter]);
                 if (counter==3){
                     this.scene.start('game')
@@ -102,6 +100,8 @@ export default class Pond1 extends Phaser.Scene{
         pbfPond.image.on("pointerdown",()=>{
             if (pbfPond.fish===answers[counter] || pbfPond.pond===answers[counter]){
                 counter++;
+                ScoreTracker.addScore();
+                ScoreTracker.addQuestion();
                 question.setText(questions[counter]);
                 if (counter==3){
                     this.scene.start('game')
@@ -115,6 +115,8 @@ export default class Pond1 extends Phaser.Scene{
         miPond.image.on("pointerdown",()=>{
             if (miPond.fish===answers[counter] || miPond.pond===answers[counter]){
                 counter++;
+                ScoreTracker.addScore();
+                ScoreTracker.addQuestion();
                 question.setText(questions[counter]);
                 if (counter==3){
                     this.scene.start('game')
