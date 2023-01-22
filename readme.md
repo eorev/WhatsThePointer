@@ -17,3 +17,5 @@ answers, and code behind the scenes of running the first level.
 Katie - added the text for score and question count, haven't been able to get it incrementing propperly yet still working on it
 
 Evan - formatted the pond gameplay scene and added some backgrounds and extra touches to enhance it. Added a back button too.
+
+Ethan - Worked on main game flow.  User navigation from main menu to game and back.  Organized code into distinct reusable files.  
