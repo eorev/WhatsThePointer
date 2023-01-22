@@ -1,6 +1,5 @@
 import Phaser from "phaser";
 import ScoreTracker from "../ScoreTracker";
-import GameScene from "./GameScene";
 
 class Pond{
     pond:string;

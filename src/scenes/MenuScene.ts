@@ -23,12 +23,10 @@ export default class MenuScene extends Phaser.Scene {
 		let menuButtons = this.add.group();
     
 		let playButton = this.add.text(MenuStyles.menuButtons.x, MenuStyles.menuButtons.y, 'Play');
-		let optionsButton = this.add.text(MenuStyles.menuButtons.x, MenuStyles.menuButtons.y + 50, 'Options');
-		let instructionsButton = this.add.text(MenuStyles.menuButtons.x, MenuStyles.menuButtons.y + 100, 'How to Play');
-		let exitButton = this.add.text(MenuStyles.menuButtons.x, MenuStyles.menuButtons.y + 150, 'Exit');
+		let instructionsButton = this.add.text(MenuStyles.menuButtons.x, MenuStyles.menuButtons.y + 50, 'How to Play');
+		let exitButton = this.add.text(MenuStyles.menuButtons.x, MenuStyles.menuButtons.y + 100, 'Exit');
     
 		menuButtons.add(playButton); 
-		menuButtons.add(optionsButton); 
 		menuButtons.add(instructionsButton);
 		menuButtons.add(exitButton);
 
@@ -37,7 +35,6 @@ export default class MenuScene extends Phaser.Scene {
 		let buttonStyle = MenuStyles.menuButtons.style;
 		let selectedButtonStyle = MenuStyles.selectedButtonStyle;
 		playButton.setStyle(selectedButtonStyle);
-		optionsButton.setStyle(buttonStyle);
 		instructionsButton.setStyle(buttonStyle);
 		exitButton.setStyle(buttonStyle);
 
@@ -57,24 +54,15 @@ export default class MenuScene extends Phaser.Scene {
 			switch (selectedButton) {
 				case 0:
 					playButton.setStyle(selectedButtonStyle);
-					optionsButton.setStyle(buttonStyle);
 					instructionsButton.setStyle(buttonStyle);
 					exitButton.setStyle(buttonStyle);
 					break;
 				case 1:
 					playButton.setStyle(buttonStyle);
-					optionsButton.setStyle(selectedButtonStyle);
-					instructionsButton.setStyle(buttonStyle);
-					exitButton.setStyle(buttonStyle);
-					break;
-				case 2:
-					playButton.setStyle(buttonStyle);
-					optionsButton.setStyle(buttonStyle);
 					instructionsButton.setStyle(selectedButtonStyle);
 					exitButton.setStyle(buttonStyle);
-				case 3:
+				case 2:
 					playButton.setStyle(buttonStyle);
-					optionsButton.setStyle(buttonStyle);
 					instructionsButton.setStyle(buttonStyle);
 					exitButton.setStyle(selectedButtonStyle);
 			}
@@ -88,12 +76,9 @@ export default class MenuScene extends Phaser.Scene {
 						this.scene.start('game');
 						break;
 					case 1:
-						this.scene.start('options');
-						break;
-					case 2:
 						this.scene.start('instructions');
 						break;
-					case 3:
+					case 2:
 						this.scene.start('exit');
 						break;
 				}
@@ -104,7 +89,6 @@ export default class MenuScene extends Phaser.Scene {
 		playButton.setInteractive();
 		playButton.on('pointerover', () => {
 			playButton.setStyle(selectedButtonStyle);
-			optionsButton.setStyle(buttonStyle);
 			instructionsButton.setStyle(buttonStyle);
 			exitButton.setStyle(buttonStyle);
 			selectedButton = 0;
@@ -114,23 +98,10 @@ export default class MenuScene extends Phaser.Scene {
 			this.scene.start('game');
 		});
 		
-		optionsButton.setInteractive();
-		optionsButton.on('pointerover', () => {
-			playButton.setStyle(buttonStyle);
-			optionsButton.setStyle(selectedButtonStyle);
-			instructionsButton.setStyle(buttonStyle);
-			exitButton.setStyle(buttonStyle);
-			selectedButton = 1;
-		});
-
-		optionsButton.on('pointerdown', () => {
-			this.scene.start('options');
-		});
 
 		instructionsButton.setInteractive();
 		instructionsButton.on('pointerover', () => {
 			playButton.setStyle(buttonStyle);
-			optionsButton.setStyle(buttonStyle);
 			instructionsButton.setStyle(selectedButtonStyle);
 			exitButton.setStyle(buttonStyle);
 			selectedButton = 2;
@@ -143,7 +114,6 @@ export default class MenuScene extends Phaser.Scene {
 		exitButton.setInteractive();
 		exitButton.on('pointerover', () => {
 			playButton.setStyle(buttonStyle);
-			optionsButton.setStyle(buttonStyle);
 			instructionsButton.setStyle(buttonStyle);
 			exitButton.setStyle(selectedButtonStyle);
 			selectedButton = 3;
@@ -156,6 +126,6 @@ export default class MenuScene extends Phaser.Scene {
 	}
 
 	update() {
-
+		
 	}
 }
