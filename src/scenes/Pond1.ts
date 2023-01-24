@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import ScoreTracker from "../ScoreTracker";
 
 class Pond{
     pond:string;
@@ -15,12 +16,6 @@ class Pond{
 
 export default class Pond1 extends Phaser.Scene{
 
-    //for score and question count
-    private score = 0
-    private scoreText?: Phaser.GameObjects.Text
-    private questionCount = 0
-    private questionCountText?: Phaser.GameObjects.Text
-
 
     constructor(){
         super('Pond1');
@@ -35,9 +30,6 @@ export default class Pond1 extends Phaser.Scene{
     }
 
     create(){
-
-        let score = 0
-        let questionCount = 0
 
         let questions = [
             "If the fisher wants to catch the Moorish \nIdol, what pond do they need to go to?",
@@ -70,50 +62,49 @@ export default class Pond1 extends Phaser.Scene{
         });
         // ~~
     
-        //Keeps track of current question and displays it
+
         let counter = 0;
         let question = this.add.text(8,6,questions[counter]);
         question.setFont("32px") 
 
         //score board
-        this.scoreText = this.add.text(16, 550, 'score: 0', {
+        let scoreText = this.add.text(16, 550, `Score: ${ScoreTracker.getScore()}`, {
         fontSize: '32px',
         color: '#FFFFFF' })
     
         //question count
-        this.questionCountText = this.add.text(575, 550, 'question #0', {
+        let questionCountText = this.add.text(550, 550, `Questions: ${ScoreTracker.getQuestionCount()}`, {
         fontSize: '32px',
         color: '#FFFFFF' })
 
-        //Creates first pond holding Racoon Butterflyfish    
-        let pond1 = this.add.text(225,125,"Pond 1");
-        let rbfPond = new Pond("Pond 1","Racoon Butterflyfish",this.add.image(250,200,'RBF Pond'));
-        
-        //Checks if pond is the correct answer when clicked
+        let pond1 = this.add.text(225,150,"Pond 1");
+        let rbfPond = new Pond("Pond 1","Racoon Butterflyfish",this.add.image(250,250,'RBF Pond'));
         rbfPond.image.setInteractive();
         rbfPond.image.on("pointerdown",()=>{
             if (rbfPond.fish===answers[counter] || rbfPond.pond===answers[counter]){
                 counter++; 
-
-                score += 100           
-
+                ScoreTracker.addScore();
+                ScoreTracker.addQuestion();
+                scoreText.setText(`Score: ${ScoreTracker.getScore()}`)
+                questionCountText.setText(`Questions: ${ScoreTracker.getQuestionCount()}`)
                 question.setText(questions[counter]);
                 if (counter==3){
                     this.scene.start('game')
                 }
             }
-            this.scoreText?.setText('Score: '+ score)
+            scoreText.setText(`Score: ${ScoreTracker.getScore()}`)
         })
         
-        //Creates second pond holding Pennant Butterflyfish
         let pond2 = this.add.text(475,150,"Pond 2");
-        let pbfPond = new Pond("Pond 2","Pennant Butterflyfish",this.add.image(250,350,'PBF Pond'));
-
-        //Checks if pond is the correct answer when clicked
+        let pbfPond = new Pond("Pond 2","Pennant Butterflyfish",this.add.image(500,250,'PBF Pond'));
         pbfPond.image.setInteractive();
         pbfPond.image.on("pointerdown",()=>{
             if (pbfPond.fish===answers[counter] || pbfPond.pond===answers[counter]){
                 counter++;
+                ScoreTracker.addScore();
+                ScoreTracker.addQuestion();
+                scoreText.setText(`Score: ${ScoreTracker.getScore()}`)
+                questionCountText.setText(`Questions: ${ScoreTracker.getQuestionCount()}`)
                 question.setText(questions[counter]);
                 if (counter==3){
                     this.scene.start('game')
@@ -121,15 +112,16 @@ export default class Pond1 extends Phaser.Scene{
             }
         })
         
-        //Creates third pond holding Moorish Idol
         let pond3 = this.add.text(350,350,"Pond 3");
-        let miPond = new Pond("Pond 3","Moorish Idol",this.add.image(250,450,'MI Pond'));
-
-        //Checks if pond is the correct answer when clicked
+        let miPond = new Pond("Pond 3","Moorish Idol",this.add.image(375,450,'MI Pond'));
         miPond.image.setInteractive();
         miPond.image.on("pointerdown",()=>{
             if (miPond.fish===answers[counter] || miPond.pond===answers[counter]){
                 counter++;
+                ScoreTracker.addScore();
+                ScoreTracker.addQuestion();
+                scoreText.setText(`Score: ${ScoreTracker.getScore()}`)
+                questionCountText.setText(`Questions: ${ScoreTracker.getQuestionCount()}`)
                 question.setText(questions[counter]);
                 if (counter==3){
                     this.scene.start('game')

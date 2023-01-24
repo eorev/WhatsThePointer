@@ -1,13 +1,7 @@
 import Phaser from "phaser";
+import scoreTracker from "../ScoreTracker";
 
 export default class GameScene extends Phaser.Scene {
-
-    //score and question count
-    public score = 0;
-    public scoreText?: Phaser.GameObjects.Text
-    public questionCount = 0
-    public questionCountText?: Phaser.GameObjects.Text
-
     constructor() {
         super('game')
     }
@@ -41,19 +35,19 @@ export default class GameScene extends Phaser.Scene {
         });
         pond2.setInteractive();
         pond2.on('pointerdown', () => {
-            this.scene.start('pond');
+            this.scene.start('Pond2');
         });
         pond3.setInteractive();
         pond3.on('pointerdown', () => {
-            this.scene.start('pond');
+            this.scene.start('Pond3');
         });
         pond4.setInteractive();
         pond4.on('pointerdown', () => {
-            this.scene.start('pond');
+            this.scene.start('Pond4');
         });
         pond5.setInteractive();
         pond5.on('pointerdown', () => {
-            this.scene.start('pond');
+            this.scene.start('Pond5');
         });
 
         //changes the style of the pond when hovered over
@@ -96,21 +90,19 @@ export default class GameScene extends Phaser.Scene {
         });
 
         //score board
-        this.scoreText = this.add.text(16, 16, 'score: 0', {
+        let scoreText = this.add.text(16, 16, `Score: ${scoreTracker.getScore()}`, {
         fontSize: '32px',
-        color: '#000' })
+        color: '#fff' })
 
         //question count
-        this.questionCountText = this.add.text(450, 16, 'question #: 0', {
+        let questionCountText = this.add.text(575, 16, `Question #${scoreTracker.getQuestionCount()}`, {
         fontSize: '32px',
-        color: '#000' })
+        color: '#fff' })
 
     }
-
-
-    
 
     update() {
 
     }
+
 }
