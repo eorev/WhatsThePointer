@@ -7,11 +7,11 @@ export default class InstructionsScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('background', 'https://picsum.photos/800/600')
+        this.load.image('instructionsBackground', '/assets/black.png')
     }
 
     create() {
-        let background = this.add.image(0, 0, 'background')
+        let background = this.add.image(0, 0, 'instructionsBackground')
         //centers the image
         background.setOrigin(0, 0)
 

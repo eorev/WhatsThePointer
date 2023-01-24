@@ -7,6 +7,12 @@ export default class MenuStyles {
         url: 'https://picsum.photos/800/600',
     }
 
+    static instructionsBackground = {
+        key: 'instructionsBackground',
+        url: '/assets/black.png',
+    }
+
+
     //title
     static title = {
         x: 100,
@@ -24,7 +30,7 @@ export default class MenuStyles {
     static menuButtons = {
         x: 100,
         y: 200,
-        text: ['Play', 'Options', 'Exit'],
+        text: ['Play', 'How to Play', 'Exit'],
         style: {
             font: "bold 48px Arial",
             fill: "#fff",
