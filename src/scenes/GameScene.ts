@@ -1,13 +1,7 @@
 import Phaser from "phaser";
+import scoreTracker from "../ScoreTracker";
 
 export default class GameScene extends Phaser.Scene {
-
-    //score and question count
-    public score = 0;
-    public scoreText?: Phaser.GameObjects.Text
-    public questionCount = 0
-    public questionCountText?: Phaser.GameObjects.Text
-
     constructor() {
         super('game')
     }
@@ -96,21 +90,19 @@ export default class GameScene extends Phaser.Scene {
         });
 
         //score board
-        this.scoreText = this.add.text(16, 16, 'score: 0', {
+        let scoreText = this.add.text(16, 16, `Score: ${scoreTracker.getScore()}`, {
         fontSize: '32px',
-        color: '#000' })
+        color: '#fff' })
 
         //question count
-        this.questionCountText = this.add.text(450, 16, 'question #: 0', {
+        let questionCountText = this.add.text(575, 16, `Question #${scoreTracker.getQuestionCount()}`, {
         fontSize: '32px',
-        color: '#000' })
+        color: '#fff' })
 
     }
-
-
-    
 
     update() {
 
     }
+
 }
