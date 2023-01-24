@@ -86,8 +86,8 @@ export default class Pond1 extends Phaser.Scene{
         color: '#FFFFFF' })
 
         //Creates first pond holding Racoon Butterflyfish    
-        let pond1 = this.add.text(225,150,"Pond 1");
-        let rbfPond = new Pond("Pond 1","Racoon Butterflyfish",this.add.image(250,250,'RBF Pond'));
+        let pond1 = this.add.text(225,125,"Pond 1");
+        let rbfPond = new Pond("Pond 1","Racoon Butterflyfish",this.add.image(250,200,'RBF Pond'));
         
         //Checks if pond is the correct answer when clicked
         rbfPond.image.setInteractive();
@@ -107,7 +107,7 @@ export default class Pond1 extends Phaser.Scene{
         
         //Creates second pond holding Pennant Butterflyfish
         let pond2 = this.add.text(475,150,"Pond 2");
-        let pbfPond = new Pond("Pond 2","Pennant Butterflyfish",this.add.image(500,250,'PBF Pond'));
+        let pbfPond = new Pond("Pond 2","Pennant Butterflyfish",this.add.image(250,350,'PBF Pond'));
 
         //Checks if pond is the correct answer when clicked
         pbfPond.image.setInteractive();
@@ -123,7 +123,7 @@ export default class Pond1 extends Phaser.Scene{
         
         //Creates third pond holding Moorish Idol
         let pond3 = this.add.text(350,350,"Pond 3");
-        let miPond = new Pond("Pond 3","Moorish Idol",this.add.image(375,450,'MI Pond'));
+        let miPond = new Pond("Pond 3","Moorish Idol",this.add.image(250,450,'MI Pond'));
 
         //Checks if pond is the correct answer when clicked
         miPond.image.setInteractive();
