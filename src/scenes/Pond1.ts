@@ -77,8 +77,12 @@ export default class Pond1 extends Phaser.Scene{
         fontSize: '32px',
         color: '#FFFFFF' })
 
-        let pond1 = this.add.text(225,150,"Pond 1");
-        let rbfPond = new Pond("Pond 1","Racoon Butterflyfish",this.add.image(250,250,'RBF Pond'));
+        //Address and Data Value Title
+        let addrTitle = this.add.text(200,100,"Addresses")
+        let dataTitle = this.add.text(550,100,"Data Values")
+
+        let pond1 = this.add.text(225,125,"Pond 1");
+        let rbfPond = new Pond("Pond 1","Racoon Butterflyfish",this.add.image(250,200,'RBF Pond'));
         rbfPond.image.setInteractive();
         rbfPond.image.on("pointerdown",()=>{
             if (rbfPond.fish===answers[counter] || rbfPond.pond===answers[counter]){
@@ -95,8 +99,8 @@ export default class Pond1 extends Phaser.Scene{
             scoreText.setText(`Score: ${ScoreTracker.getScore()}`)
         })
         
-        let pond2 = this.add.text(475,150,"Pond 2");
-        let pbfPond = new Pond("Pond 2","Pennant Butterflyfish",this.add.image(500,250,'PBF Pond'));
+        let pond2 = this.add.text(225,275,"Pond 2");
+        let pbfPond = new Pond("Pond 2","Pennant Butterflyfish",this.add.image(250,350,'PBF Pond'));
         pbfPond.image.setInteractive();
         pbfPond.image.on("pointerdown",()=>{
             if (pbfPond.fish===answers[counter] || pbfPond.pond===answers[counter]){
@@ -112,8 +116,8 @@ export default class Pond1 extends Phaser.Scene{
             }
         })
         
-        let pond3 = this.add.text(350,350,"Pond 3");
-        let miPond = new Pond("Pond 3","Moorish Idol",this.add.image(375,450,'MI Pond'));
+        let pond3 = this.add.text(225,425,"Pond 3");
+        let miPond = new Pond("Pond 3","Moorish Idol",this.add.image(250,500,'MI Pond'));
         miPond.image.setInteractive();
         miPond.image.on("pointerdown",()=>{
             if (miPond.fish===answers[counter] || miPond.pond===answers[counter]){
