@@ -73,7 +73,7 @@ export default class Pond1 extends Phaser.Scene{
         color: '#FFFFFF' })
     
         //question count
-        let questionCountText = this.add.text(600, 550, `Questions: ${ScoreTracker.getQuestionCount()}`, {
+        let questionCountText = this.add.text(550, 550, `Questions: ${ScoreTracker.getQuestionCount()}`, {
         fontSize: '32px',
         color: '#FFFFFF' })
 
@@ -85,6 +85,8 @@ export default class Pond1 extends Phaser.Scene{
                 counter++; 
                 ScoreTracker.addScore();
                 ScoreTracker.addQuestion();
+                scoreText.setText(`Score: ${ScoreTracker.getScore()}`)
+                questionCountText.setText(`Questions: ${ScoreTracker.getQuestionCount()}`)
                 question.setText(questions[counter]);
                 if (counter==3){
                     this.scene.start('game')
@@ -101,6 +103,8 @@ export default class Pond1 extends Phaser.Scene{
                 counter++;
                 ScoreTracker.addScore();
                 ScoreTracker.addQuestion();
+                scoreText.setText(`Score: ${ScoreTracker.getScore()}`)
+                questionCountText.setText(`Questions: ${ScoreTracker.getQuestionCount()}`)
                 question.setText(questions[counter]);
                 if (counter==3){
                     this.scene.start('game')
@@ -116,6 +120,8 @@ export default class Pond1 extends Phaser.Scene{
                 counter++;
                 ScoreTracker.addScore();
                 ScoreTracker.addQuestion();
+                scoreText.setText(`Score: ${ScoreTracker.getScore()}`)
+                questionCountText.setText(`Questions: ${ScoreTracker.getQuestionCount()}`)
                 question.setText(questions[counter]);
                 if (counter==3){
                     this.scene.start('game')
