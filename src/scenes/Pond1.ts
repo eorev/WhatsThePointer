@@ -3,12 +3,20 @@ import ScoreTracker from "../ScoreTracker";
 
 class Pond{
     pond:string;
-    fish:string;
     image:Phaser.GameObjects.Image;
 
 
-    constructor(pond:string,fish:string,image:Phaser.GameObjects.Image){
+    constructor(pond:string,image:Phaser.GameObjects.Image){
         this.pond=pond;
+        this.image=image;
+    }
+}
+
+class Fish{
+    fish: string;
+    image: Phaser.GameObjects.Image;
+
+    constructor(fish:string,image:Phaser.GameObjects.Image){
         this.fish=fish;
         this.image=image;
     }
