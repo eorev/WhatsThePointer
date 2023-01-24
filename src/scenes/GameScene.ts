@@ -35,19 +35,19 @@ export default class GameScene extends Phaser.Scene {
         });
         pond2.setInteractive();
         pond2.on('pointerdown', () => {
-            this.scene.start('pond');
+            this.scene.start('Pond2');
         });
         pond3.setInteractive();
         pond3.on('pointerdown', () => {
-            this.scene.start('pond');
+            this.scene.start('Pond3');
         });
         pond4.setInteractive();
         pond4.on('pointerdown', () => {
-            this.scene.start('pond');
+            this.scene.start('Pond4');
         });
         pond5.setInteractive();
         pond5.on('pointerdown', () => {
-            this.scene.start('pond');
+            this.scene.start('Pond5');
         });
 
         //changes the style of the pond when hovered over
