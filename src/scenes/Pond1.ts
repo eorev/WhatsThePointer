@@ -35,6 +35,7 @@ export default class Pond1 extends Phaser.Scene{
         this.load.image('MI Pond','assets/MI_Pond.png');
         this.load.image('field','assets/field.png');
         this.load.image('rocks','assets/rocks.png');
+        this.load.image('RBF','assets/RBF.png')
     }
 
     create(){
@@ -90,10 +91,11 @@ export default class Pond1 extends Phaser.Scene{
         let dataTitle = this.add.text(550,100,"Data Values")
 
         let pond1 = this.add.text(225,125,"Pond 1");
-        let rbfPond = new Pond("Pond 1","Racoon Butterflyfish",this.add.image(250,200,'RBF Pond'));
+        let rbfPond = new Pond("Pond 1",this.add.image(250,200,'RBF Pond'));
+        let rbf = new Fish("Racoon Butterflyfish", this.add.image(600,200,'RBF'))
         rbfPond.image.setInteractive();
         rbfPond.image.on("pointerdown",()=>{
-            if (rbfPond.fish===answers[counter] || rbfPond.pond===answers[counter]){
+            if ( rbfPond.pond===answers[counter]){
                 counter++; 
                 ScoreTracker.addScore();
                 ScoreTracker.addQuestion();
@@ -108,7 +110,7 @@ export default class Pond1 extends Phaser.Scene{
         })
         
         let pond2 = this.add.text(225,275,"Pond 2");
-        let pbfPond = new Pond("Pond 2","Pennant Butterflyfish",this.add.image(250,350,'PBF Pond'));
+        let pbfPond = new Pond("Pond 2",this.add.image(250,350,'PBF Pond'));
         pbfPond.image.setInteractive();
         pbfPond.image.on("pointerdown",()=>{
             if (pbfPond.fish===answers[counter] || pbfPond.pond===answers[counter]){
@@ -125,7 +127,7 @@ export default class Pond1 extends Phaser.Scene{
         })
         
         let pond3 = this.add.text(225,425,"Pond 3");
-        let miPond = new Pond("Pond 3","Moorish Idol",this.add.image(250,500,'MI Pond'));
+        let miPond = new Pond("Pond 3",this.add.image(250,500,'MI Pond'));
         miPond.image.setInteractive();
         miPond.image.on("pointerdown",()=>{
             if (miPond.fish===answers[counter] || miPond.pond===answers[counter]){
