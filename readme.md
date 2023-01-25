@@ -19,3 +19,5 @@ Katie - added the text for score and question count, haven't been able to get it
 Evan - formatted the pond gameplay scene and added some backgrounds and extra touches to enhance it. Added a back button too.
 
 Ethan - Worked on main game flow.  User navigation from main menu to game and back.  Organized code into distinct reusable files.  
+
+Kamya - worked on creating the instructions page. Created working scenes for the 4 remaining levels. Added exit buttons from screens to return to the menu screen.
