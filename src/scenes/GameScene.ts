@@ -105,6 +105,7 @@ export default class GameScene extends Phaser.Scene {
             pond5.setStyle(pondStyle);
         });*/
 
+
         //exit button creation
         let xButton = this.add.text(25, 550, '<- back');
 
