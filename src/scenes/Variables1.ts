@@ -61,8 +61,8 @@ export default class Variables1 extends Phaser.Scene{
         this.add.text(200,375,'Racoon Butterflyfish')
         this.rbf = this.add.image(275,450,'RBF').setInteractive();
 
-        this.add.text(500,175,"Code:");
-        this.code = this.add.text(500,225,"Pond = ");
+        this.add.text(500,175,"Code:").setFontSize(40);
+        this.code = this.add.text(500,225,"Pond = ").setFontSize(15);
 
         //Create check code button
         let checkCode = this.add.text(500,400,"Check Code").setInteractive();
