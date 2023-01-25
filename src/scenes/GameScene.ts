@@ -36,6 +36,11 @@ export default class GameScene extends Phaser.Scene {
             this.scene.start('Variables1');
         })
 
+        pointers.setInteractive();
+        pointers.on('pointerdown',()=>{
+            this.scene.start("Pond1")
+        })
+
 
         //allows the user to click on the pond to enter the pond scence
         /*pond1.setInteractive();

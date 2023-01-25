@@ -15,6 +15,7 @@ export default class Variables1 extends Phaser.Scene{
     private answer: string;
     private feedback: any;
     private popup: any;
+    private question: any;
 
     constructor(){
         super('Variables1');
@@ -33,15 +34,18 @@ export default class Variables1 extends Phaser.Scene{
     create(){
         this.count = 0;
         this.questions = [
-            "Make the variable pond equal to the Moorish Idol",
-            "Make the variable pond equal to the Pennant Butterflyfish",
-            "Make the variable pond equal to the Racoon Butterflyfish"
+            "Make the variable pond equal to the \nMoorish Idol",
+            "Make the variable pond equal to the \nPennant Butterflyfish",
+            "Make the variable pond equal to the \nRacoon Butterflyfish"
         ]
         this.answers = ["Moorish Idol","Pennant Butterflyfish","Racoon Butterflyfish"]
 
         //Create Background of level
         this.add.image(0,0,'Field').setOrigin(0,0);
         this.add.image(0,0,'Rocks').setOrigin(0,0);
+
+        this.question= this.add.text(8,6,this.questions[this.count]);
+        this.question.setFontSize(30);
 
         this.pond = this.add.image(75,300,'Pond');
 
@@ -120,7 +124,15 @@ export default class Variables1 extends Phaser.Scene{
                 close.destroy();
             });
 
-            this.count++;
+            if (this.count<2){
+                this.count++;
+                this.question.setText(this.questions[this.count])
+            }
+            else{
+                this.count=0;
+                this.question.setText(this.questions[this.count])
+            }
+            
         }
         else{
             //Display feedback window
