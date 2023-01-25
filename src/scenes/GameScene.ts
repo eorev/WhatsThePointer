@@ -7,7 +7,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('background', 'https://picsum.photos/800/600')
+        this.load.image('background', 'assets/game_background.jpg')
     }
 
     create() {
