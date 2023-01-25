@@ -36,9 +36,9 @@ export default class Variables1 extends Phaser.Scene{
     create(){
         this.count = 0;
         this.questions = [
-            "Make the variable pond hold the \nMoorish Idol",
-            "Make the variable pond hold the \nPennant Butterflyfish",
-            "Make the variable pond hold the \nRacoon Butterflyfish"
+            "Make the variable Pond hold the \nMoorish Idol",
+            "Make the variable Pond hold the \nPennant Butterflyfish",
+            "Make the variable Pond hold the \nRacoon Butterflyfish"
         ]
         this.answers = ["Moorish Idol","Pennant Butterflyfish","Racoon Butterflyfish"]
 
