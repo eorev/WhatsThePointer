@@ -3,19 +3,24 @@ import ScoreTracker from "../ScoreTracker";
 
 export default class Variables1 extends Phaser.Scene{
     
-    private count: number;
-    private answers: any;
-    private questions: any;
+    private mi!: Phaser.GameObjects.Image;
+    private pbf!: Phaser.GameObjects.Image;
+    private rbf!: Phaser.GameObjects.Image;
+    private pond!: Phaser.GameObjects.Image;
+    private popup!: Phaser.GameObjects.Image;
+
+    private feedback!: Phaser.GameObjects.Text;
+    private question!: Phaser.GameObjects.Text;
+    private code!: Phaser.GameObjects.Text;
+
+    private count!: number;
+    private answer!: string;
+    private answers!: Array<string>;
+    private questions!: Array<string>;
     private dragObj: any;
-    private mi: any;
-    private pbf: any;
-    private rbf: any;
-    private pond: any;
-    private code: any;
-    private answer: string;
-    private feedback: any;
-    private popup: any;
-    private question: any;
+    
+    
+    
 
     constructor(){
         super('Variables1');
@@ -85,18 +90,18 @@ export default class Variables1 extends Phaser.Scene{
             this.answer="Moorish Idol";
         }     
         
-        if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.pbf.getBounds())){
+        else if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.pbf.getBounds())){
             this.code.setText("Pond = Pennant Butterflyfish")
             this.answer="Pennant Butterflyfish";
         }     
 
-        if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.rbf.getBounds())){
+        else if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.rbf.getBounds())){
             this.code.setText("Pond = Racoon Butterflyfish")
             this.answer="Racoon Butterflyfish";
         }     
 
         //Check if no fish are touching pond
-        if(!(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.rbf.getBounds()) || Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.pbf.getBounds()) || Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.mi.getBounds()))){
+        else{
             this.code.setText("Pond = ");
             this.answer="";
         }
