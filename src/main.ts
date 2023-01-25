@@ -2,8 +2,13 @@
 import Phaser from 'phaser'
 import MenuScene from './scenes/MenuScene'
 import Pond1 from './scenes/Pond1'
+import Pond2 from './scenes/Pond2'
+import Pond3 from './scenes/Pond3'
+import Pond4 from './scenes/Pond4'
+import Pond5 from './scenes/Pond5'
 import GameScene from './scenes/GameScene'
 import InstructionsScene from './scenes/InstructionsScene'
+import Variables1 from './scenes/Variables1'
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
@@ -14,7 +19,7 @@ const config: Phaser.Types.Core.GameConfig = {
 		width: 800,
 		height: 600,
 	},
-	scene: [MenuScene,GameScene,InstructionsScene,Pond1],
+	scene: [MenuScene,GameScene,InstructionsScene,Pond1, Pond2, Pond3, Pond4, Pond5,Variables1],
 }
 
 export default new Phaser.Game(config)
