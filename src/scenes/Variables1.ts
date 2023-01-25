@@ -14,6 +14,7 @@ export default class Variables1 extends Phaser.Scene{
     private code: any;
     private answer: string;
     private feedback: any;
+    private popup: any;
 
     constructor(){
         super('Variables1');
@@ -26,6 +27,7 @@ export default class Variables1 extends Phaser.Scene{
         this.load.image('RBF','assets/RBF.png');
         this.load.image('Field','assets/field.png');
         this.load.image('Rocks','assets/rocks.png');
+        this.load.image('Popup','assets/popup.png')
     }
 
     create(){
@@ -37,11 +39,13 @@ export default class Variables1 extends Phaser.Scene{
         ]
         this.answers = ["Moorish Idol","Pennant Butterflyfish","Racoon Butterflyfish"]
 
+        //Create Background of level
         this.add.image(0,0,'Field').setOrigin(0,0);
         this.add.image(0,0,'Rocks').setOrigin(0,0);
 
         this.pond = this.add.image(75,300,'Pond');
 
+        //Create drag and drop fish
         this.add.text(200,75,"Moorish Idol");
         this.mi = this.add.image(275,150,'MI').setInteractive();
         
@@ -54,15 +58,24 @@ export default class Variables1 extends Phaser.Scene{
         this.add.text(500,175,"Code:");
         this.code = this.add.text(500,225,"Pond = ");
 
-        this.feedback = this.add.text(500,350,"");
+        //Create check code button
         let checkCode = this.add.text(500,400,"Check Code").setInteractive();
+
+        //Initiate feedback window
+        this.popup = this.add.image(375,350,'Popup');
+        this.popup.alpha=0;
+
+        this.feedback = this.add.text(275,300,"");
+        this.feedback.alpha=0;
 
         checkCode.on("pointerdown",this.checkAnswer,this)
 
+        //Initiate drag and drop
         this.input.on("pointerdown",this.startDrag,this);
     }
 
     update(time: number, delta: number): void {
+        //Check for collision of fish and pond to change code respectively
         if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.mi.getBounds())){
             this.code.setText("Pond = Moorish Idol")
             this.answer="Moorish Idol";
@@ -78,19 +91,54 @@ export default class Variables1 extends Phaser.Scene{
             this.answer="Racoon Butterflyfish";
         }     
 
+        //Check if no fish are touching pond
         if(!(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.rbf.getBounds()) || Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.pbf.getBounds()) || Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.mi.getBounds()))){
             this.code.setText("Pond = ");
             this.answer="";
         }
     }
 
+    //Checks if the user's answer is correct
     checkAnswer(){
         if (this.answer === this.answers[this.count]){
-            this.feedback.setText("Congratulations, you set the variable");
+            //displays feedback window
+            this.popup.alpha = 1;
+            this.feedback.alpha=1;
+
+            //congrats message
+            this.feedback.setText("Congratulations, you \nset the variable \nto the correct value!")
+            this.feedback.setTint(0x00FF00);
+            this.feedback.setFontSize(20);
+            
+            //Close button to exit window
+            let close = this.add.text(325,450,"Close").setInteractive();
+            close.setTint(0xff0000);
+            close.setFontSize(26)
+            close.on("pointerdown",()=>{
+                this.feedback.alpha=0;
+                this.popup.alpha=0;
+                close.destroy();
+            });
+
+            this.count++;
         }
         else{
-            this.feedback.setText("I'm sorry, you set the variable \nto " + this.answer + " but you \nneed to set the variable to " + this.answers[this.count])
+            //Display feedback window
+            this.popup.alpha=1;
+            this.feedback.alpha=1;
+            this.feedback.setText("I'm sorry, you set \nthe variable to \n" + this.answer + "\nbut you need to set \nthe variable to \n" + this.answers[this.count])
             this.feedback.setTint(0xFF0000);
+            this.feedback.setFontSize(20)
+
+            //Close button to exit feedback
+            let close = this.add.text(325,450,"Close").setInteractive();
+            close.setTint(0xff0000);
+            close.setFontSize(26)
+            close.on("pointerdown",()=>{
+                this.feedback.alpha=0;
+                this.popup.alpha=0;
+                close.destroy();
+            });
         }
     }
 
