@@ -7,7 +7,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('background', 'https://picsum.photos/800/600')
+        this.load.image('background', 'assets/game_background.jpg')
     }
 
     create() {
@@ -16,7 +16,7 @@ export default class GameScene extends Phaser.Scene {
         background.setOrigin(0, 0)
 
         //creates a list of ponds displayed left to right that the player can click on
-        let ponds = this.add.group();
+        /*let ponds = this.add.group();
         let pond1 = this.add.text(50, 100, 'Pond 1');
         let pond2 = this.add.text(200, 100, 'Pond 2');
         let pond3 = this.add.text(350, 100, 'Pond 3');
@@ -26,10 +26,26 @@ export default class GameScene extends Phaser.Scene {
         ponds.add(pond2);
         ponds.add(pond3);
         ponds.add(pond4);
-        ponds.add(pond5);
+        ponds.add(pond5);*/
+
+        let variables = this.add.text(300,200,"Variables");
+        let pointers = this.add.text(300,400,"Pointers");
+
+        variables.setInteractive();
+        variables.on("pointerdown",()=>{
+            this.scene.start('Variables1');
+        })
+        variables.setFontSize(40)
+
+        pointers.setInteractive();
+        pointers.on('pointerdown',()=>{
+            this.scene.start("Pond1")
+        })
+        pointers.setFontSize(40);
+
 
         //allows the user to click on the pond to enter the pond scence
-        pond1.setInteractive();
+        /*pond1.setInteractive();
         pond1.on('pointerdown', () => {
             this.scene.start('Pond1');
         });
@@ -87,7 +103,7 @@ export default class GameScene extends Phaser.Scene {
         });
         pond5.on('pointerout', () => {
             pond5.setStyle(pondStyle);
-        });
+        });*/
 
         //exit button creation
         let xButton = this.add.text(25, 550, '<- back');
