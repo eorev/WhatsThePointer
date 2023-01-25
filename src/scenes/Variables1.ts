@@ -83,18 +83,18 @@ export default class Variables1 extends Phaser.Scene{
     update(time: number, delta: number): void {
         //Check for collision of fish and pond to change code respectively
         if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.mi.getBounds())){
-            this.code.setText("Pond = Moorish Idol")
             this.answer="Moorish Idol";
+            this.code.setText("Pond = "+this.answer);
         }     
         
         else if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.pbf.getBounds())){
-            this.code.setText("Pond = Pennant Butterflyfish")
             this.answer="Pennant Butterflyfish";
+            this.code.setText("Pond = " + this.answer);
         }     
 
         else if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.rbf.getBounds())){
-            this.code.setText("Pond = Racoon Butterflyfish")
             this.answer="Racoon Butterflyfish";
+            this.code.setText("Pond = " + this.answer);
         }     
 
         //Check if no fish are touching pond
