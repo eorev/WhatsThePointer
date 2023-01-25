@@ -49,6 +49,7 @@ export default class Variables1 extends Phaser.Scene{
         this.question= this.add.text(8,6,this.questions[this.count]);
         this.question.setFontSize(30);
 
+        //create pond
         this.pond = this.add.image(75,300,'Pond');
 
         //Create drag and drop fish
@@ -61,11 +62,13 @@ export default class Variables1 extends Phaser.Scene{
         this.add.text(200,375,'Racoon Butterflyfish')
         this.rbf = this.add.image(275,450,'RBF').setInteractive();
 
+        //Create view of students code
         this.add.text(500,175,"Code:").setFontSize(40);
         this.code = this.add.text(500,225,"Pond = ").setFontSize(15);
 
         //Create check code button
         let checkCode = this.add.text(500,400,"Check Code").setInteractive();
+        checkCode.on("pointerdown",this.checkAnswer,this)
 
         //Initiate feedback window
         this.popup = this.add.image(375,350,'Popup');
@@ -73,8 +76,6 @@ export default class Variables1 extends Phaser.Scene{
 
         this.feedback = this.add.text(275,300,"");
         this.feedback.alpha=0;
-
-        checkCode.on("pointerdown",this.checkAnswer,this)
 
         //Initiate drag and drop
         this.input.on("pointerdown",this.startDrag,this);
