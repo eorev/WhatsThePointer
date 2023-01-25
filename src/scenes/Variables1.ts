@@ -18,9 +18,6 @@ export default class Variables1 extends Phaser.Scene{
     private answers!: Array<string>;
     private questions!: Array<string>;
     private dragObj: any;
-    
-    
-    
 
     constructor(){
         super('Variables1');
