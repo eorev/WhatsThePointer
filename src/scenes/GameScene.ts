@@ -28,18 +28,20 @@ export default class GameScene extends Phaser.Scene {
         ponds.add(pond4);
         ponds.add(pond5);*/
 
-        let variables = this.add.text(350,100,"Variables");
-        let pointers = this.add.text(350,400,"Pointers");
+        let variables = this.add.text(300,200,"Variables");
+        let pointers = this.add.text(300,400,"Pointers");
 
         variables.setInteractive();
         variables.on("pointerdown",()=>{
             this.scene.start('Variables1');
         })
+        variables.setFontSize(40)
 
         pointers.setInteractive();
         pointers.on('pointerdown',()=>{
             this.scene.start("Pond1")
         })
+        pointers.setFontSize(40);
 
 
         //allows the user to click on the pond to enter the pond scence
