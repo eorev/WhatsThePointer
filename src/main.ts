@@ -9,6 +9,7 @@ import Pointer3 from './scenes/Pointer3'
 import GameScene from './scenes/GameScene'
 import InstructionsScene from './scenes/InstructionsScene'
 import Variables1 from './scenes/Variables1'
+import Pointers1 from './scenes/Pointers1'
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
@@ -19,7 +20,7 @@ const config: Phaser.Types.Core.GameConfig = {
 		width: 800,
 		height: 600,
 	},
-	scene: [MenuScene,GameScene,InstructionsScene,Pointer1,Pointer2,Pointer3, Variables1],
+	scene: [MenuScene,GameScene,InstructionsScene,Pointers1,Variables1],
 }
 
 export default new Phaser.Game(config)

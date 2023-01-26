@@ -22,7 +22,7 @@ class Fish{
     }
 }
 
-export default class Pond1 extends Phaser.Scene{
+export default class Pointers1 extends Phaser.Scene{
 
     private code1!: Phaser.GameObjects.Text;
     private code2!: Phaser.GameObjects.Text;
@@ -42,7 +42,7 @@ export default class Pond1 extends Phaser.Scene{
     private popup!: Phaser.GameObjects.Image;
 
     constructor(){
-        super('Pond1');
+        super('Pointers1');
         this.answer = '';
         
         this.questions = [
@@ -96,11 +96,6 @@ export default class Pond1 extends Phaser.Scene{
 
         //score board
         this.scoreText = this.add.text(16, 550, `Score: ${ScoreTracker.getScore()}`, {
-        fontSize: '32px',
-        color: '#FFFFFF' })
-    
-        //question count
-        let questionCountText = this.add.text(550, 550, `Questions: ${ScoreTracker.getQuestionCount()}`, {
         fontSize: '32px',
         color: '#FFFFFF' })
 
@@ -235,8 +230,7 @@ export default class Pond1 extends Phaser.Scene{
                 this.question.setText(this.questions[this.counter])
             }
             else{
-                this.counter=0;
-                this.question.setText(this.questions[this.counter])
+                this.scene.start('Pointers2')
             } 
         }   
             else{
