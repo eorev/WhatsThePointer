@@ -61,10 +61,12 @@ export default class MenuScene extends Phaser.Scene {
 					playButton.setStyle(buttonStyle);
 					instructionsButton.setStyle(selectedButtonStyle);
 					exitButton.setStyle(buttonStyle);
+					break;
 				case 2:
 					playButton.setStyle(buttonStyle);
 					instructionsButton.setStyle(buttonStyle);
 					exitButton.setStyle(selectedButtonStyle);
+					break;
 			}
 		});
 
