@@ -21,6 +21,10 @@ export default class Variables1 extends Phaser.Scene{
     private dragObj: any;
 
     private splashSound!: Phaser.Sound.BaseSound;
+    private buttonSound!: Phaser.Sound.BaseSound;
+    private correctSound!: Phaser.Sound.BaseSound;
+    private wrongSound!: Phaser.Sound.BaseSound;
+
     private draggable!: Array<Phaser.GameObjects.Image>;
 
     constructor(){
@@ -38,11 +42,18 @@ export default class Variables1 extends Phaser.Scene{
         this.load.image('Popup','assets/popup.png')
 
         this.load.audio('splash', '/assets/splash.mp3')
+        this.load.audio('correct', '/assets/correct.mp3')
+        this.load.audio('button', '/assets/button.mp3')
+        this.load.audio('wrong', '/assets/wrong.mp3')
         
     }
 
     create(){
         this.splashSound = this.sound.add('splash');
+        this.correctSound = this.sound.add('correct');
+        this.buttonSound = this.sound.add('button');
+        this.wrongSound = this.sound.add('wrong');
+
         this.count = 0;
         this.questions = [
             "Make the variable Pond hold the \nMoorish Idol",
@@ -150,6 +161,7 @@ export default class Variables1 extends Phaser.Scene{
     checkAnswer(){
         if (this.answer === this.answers[this.count]){
             ScoreTracker.addScore();
+            this.correctSound.play();
             this.score.setText(`Score: ${ScoreTracker.getScore().toString()}`)
             //displays feedback window
             this.popup.alpha = 1;
@@ -167,6 +179,7 @@ export default class Variables1 extends Phaser.Scene{
             close.on("pointerdown",()=>{
                 this.feedback.alpha=0;
                 this.popup.alpha=0;
+                this.buttonSound.play();
                 close.destroy();
             });
 
@@ -191,11 +204,13 @@ export default class Variables1 extends Phaser.Scene{
             close.on("pointerdown",()=>{
                 this.feedback.alpha=0;
                 this.popup.alpha=0;
+                this.buttonSound.play();
                 close.destroy();
             });
         }
         else{
             ScoreTracker.deductScore();
+            this.wrongSound.play();
             this.score.setText(`Score: ${ScoreTracker.getScore().toString()}`)
             //Display feedback window
             this.popup.alpha=1;
@@ -211,12 +226,14 @@ export default class Variables1 extends Phaser.Scene{
             close.on("pointerdown",()=>{
                 this.feedback.alpha=0;
                 this.popup.alpha=0;
+                this.buttonSound.play();
                 close.destroy();
             });
         }
     }
 
     resetFishPosition() {
+        this.buttonSound.play();
         this.mi.x = 275;
         this.mi.y = 150;
         this.pbf.x = 275;
