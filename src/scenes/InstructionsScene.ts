@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import BackButton from "../GlobalObjects";
+import { BackButton } from "../GlobalObjects";
 
 export default class InstructionsScene extends Phaser.Scene {
 

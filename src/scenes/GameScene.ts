@@ -1,6 +1,5 @@
 import Phaser from "phaser";
-import BackButton from "../GlobalObjects";
-import scoreTracker from "../ScoreTracker";
+import { BackButton, ScoreDisplay } from "../GlobalObjects";
 
 export default class GameScene extends Phaser.Scene {
     constructor() {
@@ -69,10 +68,15 @@ export default class GameScene extends Phaser.Scene {
         //add back button
         new BackButton(this, 'menu')
 
-        //score board
+        //add score display
+        new ScoreDisplay(this, 25, 15)
+
+        //retired: score board
+        /*
         let scoreText = this.add.text(16, 16, `Score: ${scoreTracker.getScore()}`, {
         fontSize: '32px',
         color: '#fff' })
+        */
 
     }
 
