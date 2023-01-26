@@ -36,6 +36,11 @@ export default class Variables1 extends Phaser.Scene{
         this.load.image('Moorish Idol','assets/MI.png');
         this.load.image('Pennant Butterflyfish','assets/PBF.png');
         this.load.image('Racoon Butterflyfish','assets/RBF.png');
+
+        this.load.image('MI Pond','assets/MI_Pond.png');
+        this.load.image('PBF Pond','assets/PBF_Pond.png');
+        this.load.image('RBF Pond','assets/RBF_Pond.png');
+
         this.load.image('Field','assets/field.png');
         this.load.image('Rocks','assets/rocks.png');
         this.load.image('Popup','assets/popup.png')
@@ -107,14 +112,10 @@ export default class Variables1 extends Phaser.Scene{
             if(gameObject.x > 50 && gameObject.x < 100 && gameObject.y > 275 && gameObject.y < 325){
                 this.splashSound.play();
                 gameObject.depth = 0;
-                this.code.setText(`Pond = ${gameObject.texture.key}`);
-                this.answer = gameObject.texture.key;
-            }
-            else {
-                this.code.setText("Pond = ");
-                this.answer = "";
             }
         });
+
+        
 
         //Create view of students code
         this.add.text(500,175,"Code:").setFontSize(40);
@@ -127,15 +128,21 @@ export default class Variables1 extends Phaser.Scene{
         //Initiate feedback window
         this.popup = this.add.image(375,350,'Popup');
         this.popup.alpha=0;
+        this.popup.depth = 2
 
         this.feedback = this.add.text(275,300,"");
         this.feedback.alpha=0;
+        this.feedback.depth = 2
 
         //Initiate drag and drop
         //this.input.on("pointerdown",this.startDrag,this);
 
         //creates reset fish button
-        let resetFish = this.add.text(600,30,"Reset Fish").setInteractive().setFontSize(30)
+        let resetFish = this.add.text(625,27,"[Reset Fish]")
+        .setInteractive()
+        .setFontSize(23)
+        .setColor('#e5e4d2')
+        resetFish.depth = 2
 
         resetFish.on("pointerdown",this.resetFishPosition,this);
 
@@ -146,11 +153,41 @@ export default class Variables1 extends Phaser.Scene{
         this.scoreboard = new ScoreDisplay(this, 15, 80)
 
 
-        var zone = this.add.zone(75, 300, 100, 100).setRectangleDropZone(100, 100);
+        var zone = this.add.zone(75, 300, 100, 100).setRectangleDropZone(125, 100);
 
-        this.input.on('drop', function (pointer: any, gameObject: any, dropZone: any) {
-            gameObject.x = dropZone.x;
-            gameObject.y = dropZone.y;
+        this.input.on('drop',  (pointer: any, gameObject: any, dropZone: any) => {
+
+            this.mi.alpha=1;
+            this.pbf.alpha=1;
+            this.rbf.alpha=1;
+
+            switch(gameObject.texture.key) {
+                case 'Moorish Idol':
+                    this.pond.setTexture('MI Pond')
+                    gameObject.x = 275;
+                    gameObject.y = 150;
+                    break;
+                case 'Pennant Butterflyfish':
+                    this.pond.setTexture('PBF Pond')
+                    gameObject.x = 275;
+                    gameObject.y = 300;
+                    break;
+                case 'Racoon Butterflyfish':
+                    this.pond.setTexture('RBF Pond')
+                    gameObject.x = 275;
+                    gameObject.y = 450;
+                break;
+                default:
+                    this.pond.setTexture('Pond')
+                    break;
+            }
+
+            gameObject.alpha=0.35;
+            
+            this.code.setText(`Pond = ${gameObject.texture.key}`);
+            this.answer = gameObject.texture.key;
+
+            console.log(gameObject)
         });
 
     }
@@ -248,6 +285,10 @@ export default class Variables1 extends Phaser.Scene{
     }
 
     resetFishPosition() {
+        //clear text
+        this.code.setText("Pond = ");
+        this.answer = "";
+
         this.resetButtonSound.play();
         this.mi.x = 275;
         this.mi.y = 150;
@@ -255,6 +296,12 @@ export default class Variables1 extends Phaser.Scene{
         this.pbf.y = 300;
         this.rbf.x = 275;
         this.rbf.y = 450;
+
+        this.mi.alpha=1;
+        this.pbf.alpha=1;
+        this.rbf.alpha=1;
+
+        this.pond.setTexture('Pond')
     }
 
     
