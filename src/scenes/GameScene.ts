@@ -39,71 +39,30 @@ export default class GameScene extends Phaser.Scene {
 
         pointers.setInteractive();
         pointers.on('pointerdown',()=>{
-            this.scene.start("Pond1")
+            this.scene.start("Pointer1")
         })
         pointers.setFontSize(40);
 
 
-        //allows the user to click on the pond to enter the pond scence
-        /*pond1.setInteractive();
-        pond1.on('pointerdown', () => {
-            this.scene.start('Pond1');
+        //changes the style when hovered over
+        let style = {fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
+        let selectedStyle = {fill: "#5271FF", boundsAlignH: "center", boundsAlignV: "middle" };
+        variables.setStyle(style);
+        pointers.setStyle(style);
+        
+        variables.on('pointerover', () => {
+            variables.setStyle(selectedStyle);
         });
-        pond2.setInteractive();
-        pond2.on('pointerdown', () => {
-            this.scene.start('Pond2');
-        });
-        pond3.setInteractive();
-        pond3.on('pointerdown', () => {
-            this.scene.start('Pond3');
-        });
-        pond4.setInteractive();
-        pond4.on('pointerdown', () => {
-            this.scene.start('Pond4');
-        });
-        pond5.setInteractive();
-        pond5.on('pointerdown', () => {
-            this.scene.start('Pond5');
+        variables.on('pointerout', () => {
+            variables.setStyle(style);
         });
 
-        //changes the style of the pond when hovered over
-        let pondStyle = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
-        let selectedPondStyle = { font: "bold 32px Arial", fill: "#5271FF", boundsAlignH: "center", boundsAlignV: "middle" };
-        pond1.setStyle(pondStyle);
-        pond2.setStyle(pondStyle);
-        pond3.setStyle(pondStyle);
-        pond4.setStyle(pondStyle);
-        pond5.setStyle(pondStyle);
-        pond1.on('pointerover', () => {
-            pond1.setStyle(selectedPondStyle);
+        pointers.on('pointerover', () => {
+            pointers.setStyle(selectedStyle);
         });
-        pond1.on('pointerout', () => {
-            pond1.setStyle(pondStyle);
+        pointers.on('pointerout', () => {
+            pointers.setStyle(style);
         });
-        pond2.on('pointerover', () => {
-            pond2.setStyle(selectedPondStyle);
-        });
-        pond2.on('pointerout', () => {
-            pond2.setStyle(pondStyle);
-        });
-        pond3.on('pointerover', () => {
-            pond3.setStyle(selectedPondStyle);
-        });
-        pond3.on('pointerout', () => {
-            pond3.setStyle(pondStyle);
-        });
-        pond4.on('pointerover', () => {
-            pond4.setStyle(selectedPondStyle);
-        });
-        pond4.on('pointerout', () => {
-            pond4.setStyle(pondStyle);
-        });
-        pond5.on('pointerover', () => {
-            pond5.setStyle(selectedPondStyle);
-        });
-        pond5.on('pointerout', () => {
-            pond5.setStyle(pondStyle);
-        });*/
 
 
         //exit button creation
@@ -116,8 +75,8 @@ export default class GameScene extends Phaser.Scene {
         });
 
         //changes the style of the X when hovered over
-        let xStyle = { font: "bold 25px Arial", fill: "#03f0fc", boundsAlignH: "center", boundsAlignV: "middle" };
-        let selectedXStyle = { font: "bold 25px Arial", fill: "#5271FF", boundsAlignH: "center", boundsAlignV: "middle" };
+        let xStyle = { fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
+        let selectedXStyle = { fill: "#5271FF", boundsAlignH: "center", boundsAlignV: "middle" };
         xButton.setStyle(xStyle);
         xButton.on('pointerover', () => {
             xButton.setStyle(selectedXStyle);
