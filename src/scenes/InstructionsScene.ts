@@ -7,11 +7,11 @@ export default class InstructionsScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('instructionsBackground', '/assets/black.png')
+        this.load.image('background', 'assets/game_background.jpg')
     }
 
     create() {
-        let background = this.add.image(0, 0, 'instructionsBackground')
+        let background = this.add.image(0, 0, 'background')
         //centers the image
         background.setOrigin(0, 0)
 
@@ -22,21 +22,20 @@ export default class InstructionsScene extends Phaser.Scene {
         let instructionsStyle = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
         instructions.setStyle(instructionsStyle);
 
-        //exit button creation
-        let xButton = this.add.text(725, 25, 'X');
+        let xButton = this.add.text(25, 550, '<- back');
 
         //allows user to click on the X
         xButton.setInteractive();
-        xButton.on('pointerdown', () => {
-            this.scene.start('menu');
-        });
-
+        
         //changes the style of the X when hovered over
-        let xStyle = { font: "bold 50px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
-        let selectedXStyle = { font: "bold 50px Arial", fill: "#5271FF", boundsAlignH: "center", boundsAlignV: "middle" };
+        let xStyle = { font: "bold 25px Arial", fill: "#03f0fc", boundsAlignH: "center", boundsAlignV: "middle" };
+        let selectedXStyle = { font: "bold 25px Arial", fill: "#5271FF", boundsAlignH: "center", boundsAlignV: "middle" };
         xButton.setStyle(xStyle);
         xButton.on('pointerover', () => {
             xButton.setStyle(selectedXStyle);
+        });
+        xButton.on('pointerdown', () => {
+            this.scene.start('menu');
         });
         xButton.on('pointerout', () => {
             xButton.setStyle(xStyle);
