@@ -46,27 +46,29 @@ export default class Pointers2 extends Phaser.Scene{
         this.answer = '';
         
         this.questions = [
-            "If we want the pointer to point to the Moorish \nIdol, which address does it need to hold?",
-            "If the pointer holds the address of pond 2, \nwhat fish does it point to?",
-            "If the pointer holds the address of pond 1, \nwhat fish does it point to?"
+            "If we want the pointer to point to the Reef\nTriggerfish, which address does it need to hold?",
+            "If the pointer holds the address of pond 1, \nwhat fish does it point to?",
+            "If the pointer holds the address of pond 2, \nwhat fish does it point to?"
         ];
         
         this.answers = [
             "Pond 3",
-            "Pennant Butterflyfish",
-            "Racoon Butterflyfish"
+            "Crown Toby",
+            "Black Triggerfish"
         ];
     }
 
     preload(){
-        this.load.image('RBF Pond','assets/RBF_Pond.png');
-        this.load.image('PBF Pond','assets/PBF_Pond.png');
-        this.load.image('MI Pond','assets/MI_Pond.png');
+        this.load.image('BTF Pond','assets/BTF_Pond.png');
+        this.load.image('CTF Pond','assets/CTF_Pond.png');
+        this.load.image('RTF Pond','assets/RTF_Pond.png');
+        this.load.image('SWF Pond','assets/SWF_Pond.png');
         this.load.image('field','assets/field.png');
         this.load.image('rocks','assets/rocks.png');
-        this.load.image('RBF','assets/RBF.png')
-        this.load.image('MI','assets/MI.png')
-        this.load.image('PBF','assets/PBF.png')
+        this.load.image('BTF','assets/BTF.png')
+        this.load.image('CTF','assets/CTF.png')
+        this.load.image('RTF','assets/RTF.png')
+        this.load.image('SWF','assets/SWF.png')
         this.load.image('Popup','assets/popup.png');
     }
 
@@ -111,7 +113,7 @@ export default class Pointers2 extends Phaser.Scene{
 
         //Creates first pond and allows it to be clicked
         let pond1 = this.add.text(150,125,"Pond 1");
-        let rbfPond = new Pond("Pond 1",this.add.image(175,200,'RBF Pond'));
+        let rbfPond = new Pond("Pond 1",this.add.image(175,200,'CTF Pond'));
         rbfPond.image.setInteractive();
         rbfPond.image.on("pointerdown",()=>{
             if (!this.code1lock){
@@ -122,7 +124,7 @@ export default class Pointers2 extends Phaser.Scene{
         
         //Creates the second pond and allows it to be clicked as an answer
         let pond2 = this.add.text(150,275,"Pond 2");
-        let pbfPond = new Pond("Pond 2",this.add.image(175,350,'PBF Pond'));
+        let pbfPond = new Pond("Pond 2",this.add.image(175,350,'BTF Pond'));
         pbfPond.image.setInteractive();
         pbfPond.image.on("pointerdown",()=>{
             if (!this.code1lock){
@@ -133,7 +135,7 @@ export default class Pointers2 extends Phaser.Scene{
 
         //Creates the third pond and allows it to be clicked as an answer
         let pond3 = this.add.text(150,425,"Pond 3");
-        let miPond = new Pond("Pond 3",this.add.image(175,500,'MI Pond'));
+        let miPond = new Pond("Pond 3",this.add.image(175,500,'RTF Pond'));
         miPond.image.setInteractive();
         miPond.image.on("pointerdown",()=>{
             if (!this.code1lock){
@@ -143,34 +145,34 @@ export default class Pointers2 extends Phaser.Scene{
         })
 
         //Creates the first fish and allows it to be clicked as an answer
-        let rbf = new Fish("Racoon Butterflyfish", this.add.image(350,200,'RBF'))
-        this.add.text(300,125,'Racoon Butterflyfish')
+        let rbf = new Fish("Crown Toby", this.add.image(350,200,'CTF'))
+        this.add.text(300,125,'Crown Toby')
         rbf.image.setInteractive();
         rbf.image.on("pointerdown",()=>{
             if (!this.code2lock){
-                this.answer = "Racoon Butterflyfish";
+                this.answer = "Crown Toby";
                 this.code2.setText("Pointer* = " + this.answer);
             }
         })
 
         //Creates the second fish and allows it to be clicked as an answer
-        let pbf = new Fish('Pennant Butterflyfish',this.add.image(350,350,'PBF'))
-        this.add.text(300,275,'Pennant Butterflyfish')
+        let pbf = new Fish('Black Triggerfish',this.add.image(350,350,'BTF'))
+        this.add.text(300,275,'Black Triggerfish')
         pbf.image.setInteractive();
         pbf.image.on("pointerdown",()=>{
             if (!this.code2lock){
-                this.answer = "Pennant Butterflyfish";
+                this.answer = "Black Triggerfish";
                 this.code2.setText("Pointer* = " + this.answer);
             }
         })
 
         //Creates the third fish and allows it to be clicked as an answer
-        let mi = new Fish("Moorish Idol",this.add.image(350,500,'MI'))
-        this.add.text(300,425,'Moorish Idol')
+        let mi = new Fish("Reef triggerfish",this.add.image(350,500,'RTF'))
+        this.add.text(300,425,'Reef triggerfish')
         mi.image.setInteractive();
         mi.image.on("pointerdown",()=>{
             if (!this.code2lock){
-                this.answer = "Moorish Idol";
+                this.answer = "Reef triggerfish";
                 this.code2.setText("Pointer* = " + this.answer);
             }
         })
@@ -184,17 +186,17 @@ export default class Pointers2 extends Phaser.Scene{
 
     update(time: number, delta: number): void {
         if (this.counter===0){
-            this.code2.setText("Pointer* = Moorish Idol");
+            this.code2.setText("Pointer* = Reef triggerfish");
             this.code2lock = true;
             this.code1lock = false;
         }
         else if (this.counter==1){
-            this.code1.setText("Pointer = Pond 2");
+            this.code1.setText("Pointer = Pond 1");
             this.code1lock = true;
             this.code2lock = false;
         }
         else{
-            this.code1.setText("Pointer = Pond 1");
+            this.code1.setText("Pointer = Pond 2");
             this.code1lock = true;
             this.code2lock = false;
         }
