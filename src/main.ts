@@ -1,15 +1,18 @@
 
 import Phaser from 'phaser'
-import MenuScene from './scenes/MenuScene'
-import Pointer1 from './scenes/Pointer1'
-import Pointer2 from './scenes/Pointer2'
-import Pointer3 from './scenes/Pointer3'
-//import Pond4 from './scenes/Pond4'
-//import Pond5 from './scenes/Pond5'
 import GameScene from './scenes/GameScene'
 import InstructionsScene from './scenes/InstructionsScene'
+import MenuScene from './scenes/MenuScene'
+
+// Variables game levels
 import Variables1 from './scenes/Variables1'
+//import Variables2 from './scenes/Variables2'
+//import Variables3 from './scenes/Variables3'
+
+// Pointers game levels
 import Pointers1 from './scenes/Pointers1'
+//import Pointers2 from './scenes/Pointers2'
+//import Pointers3 from './scenes/Pointers3'
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
