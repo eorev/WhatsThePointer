@@ -1,6 +1,5 @@
 import Phaser from "phaser";
-import { BackButton } from "../GlobalObjects";
-import ScoreTracker from "../ScoreTracker";
+import { BackButton, ScoreDisplay } from "../GlobalObjects";
 
 export default class Variables2 extends Phaser.Scene{
     
@@ -13,7 +12,6 @@ export default class Variables2 extends Phaser.Scene{
     private feedback!: Phaser.GameObjects.Text;
     private question!: Phaser.GameObjects.Text;
     private code!: Phaser.GameObjects.Text;
-    private score!: Phaser.GameObjects.Text;
 
     private count!: number;
     private answer!: string;
@@ -29,6 +27,8 @@ export default class Variables2 extends Phaser.Scene{
     private resetButtonSound!: Phaser.Sound.BaseSound;
 
     private draggable!: Array<Phaser.GameObjects.Image>;
+
+    private scoreboard!: ScoreDisplay;
 
     constructor(){
         super('Variables2');
@@ -112,9 +112,6 @@ export default class Variables2 extends Phaser.Scene{
         //Initiate drag and drop
         this.input.on("pointerdown",this.startDrag,this);
 
-        //Creates a score tracker
-        this.score = this.add.text(600, 5, `Score: ${ScoreTracker.getScore().toString()}`).setFontSize(30)
-
         //creates reset fish button
         let resetFish = this.add.text(600,30,"Reset Fish").setInteractive().setFontSize(30)
 
@@ -122,6 +119,9 @@ export default class Variables2 extends Phaser.Scene{
 
        //add back button
         new BackButton(this, 'game')
+
+        //scores
+        this.scoreboard = new ScoreDisplay(this, 15, 80)
     }
 
     update(): void {
@@ -157,9 +157,8 @@ export default class Variables2 extends Phaser.Scene{
     //Checks if the user's answer is correct
     checkAnswer(){
         if (this.answer === this.answers[this.count]){
-            ScoreTracker.addScore();
+            this.scoreboard.addScore();
             this.correctSound.play();
-            this.score.setText(`Score: ${ScoreTracker.getScore().toString()}`)
             //displays feedback window
             this.popup.alpha = 1;
             this.feedback.alpha=1;
@@ -206,9 +205,8 @@ export default class Variables2 extends Phaser.Scene{
             });
         }
         else{
-            ScoreTracker.deductScore();
+            this.scoreboard.deductScore();
             this.wrongSound.play();
-            this.score.setText(`Score: ${ScoreTracker.getScore().toString()}`)
             //Display feedback window
             this.popup.alpha=1;
             this.feedback.alpha=1;
