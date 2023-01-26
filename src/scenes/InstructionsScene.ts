@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import BackButton from "../GlobalObjects";
 
 export default class InstructionsScene extends Phaser.Scene {
 
@@ -25,6 +26,7 @@ export default class InstructionsScene extends Phaser.Scene {
     }
 
     preload() {
+<<<<<<< HEAD
         //this.load.image('instructionsBackground', '/assets/black.png')
         this.load.image('Pond','assets/Pond.png');
         this.load.image('MI','assets/MI.png');
@@ -42,6 +44,15 @@ export default class InstructionsScene extends Phaser.Scene {
     }
 
     create() {
+=======
+        this.load.image('background', 'assets/game_background.jpg')
+    }
+
+    create() {
+        let background = this.add.image(0, 0, 'background')
+        //centers the image
+        background.setOrigin(0, 0)
+>>>>>>> main
 
         //list of questions and answers 
         this.questions = [
@@ -120,6 +131,7 @@ export default class InstructionsScene extends Phaser.Scene {
         });
 
 
+<<<<<<< HEAD
 
         //exit how to play button creation
         let xButton = this.add.text(725, 25, 'X');
@@ -140,6 +152,10 @@ export default class InstructionsScene extends Phaser.Scene {
         xButton.on('pointerout', () => {
             xButton.setStyle(xStyle);
         });
+=======
+        //add back button
+        new BackButton(this, 'menu')
+>>>>>>> main
 
         //Create view of students code
         this.add.text(500,175,"Code:").setFontSize(40);
@@ -156,4 +172,5 @@ export default class InstructionsScene extends Phaser.Scene {
     update() {
 
     }
+
 }
