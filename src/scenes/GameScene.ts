@@ -131,11 +131,6 @@ export default class GameScene extends Phaser.Scene {
         fontSize: '32px',
         color: '#fff' })
 
-        //question count
-        let questionCountText = this.add.text(575, 16, `Question #${scoreTracker.getQuestionCount()}`, {
-        fontSize: '32px',
-        color: '#fff' })
-
     }
 
     update() {
