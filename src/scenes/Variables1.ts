@@ -40,7 +40,11 @@ export default class Variables1 extends Phaser.Scene{
             "Make the variable Pond hold the \nPennant Butterflyfish",
             "Make the variable Pond hold the \nRacoon Butterflyfish"
         ]
-        this.answers = ["Moorish Idol","Pennant Butterflyfish","Racoon Butterflyfish"]
+        this.answers = [
+            "Moorish Idol",
+            "Pennant Butterflyfish",
+            "Racoon Butterflyfish"
+        ]
 
         //Create Background of level
         this.add.image(0,0,'Field').setOrigin(0,0);
@@ -79,6 +83,25 @@ export default class Variables1 extends Phaser.Scene{
 
         //Initiate drag and drop
         this.input.on("pointerdown",this.startDrag,this);
+
+        let xButton = this.add.text(25, 550, '<- back');
+
+        //allows user to click on the X
+        xButton.setInteractive();
+        xButton.on('pointerdown', () => {
+            this.scene.start('game');
+        });
+
+        //changes the style of the X when hovered over
+        let xStyle = { font: "bold 25px Arial", fill: "#03f0fc", boundsAlignH: "center", boundsAlignV: "middle" };
+        let selectedXStyle = { font: "bold 25px Arial", fill: "#5271FF", boundsAlignH: "center", boundsAlignV: "middle" };
+        xButton.setStyle(xStyle);
+        xButton.on('pointerover', () => {
+            xButton.setStyle(selectedXStyle);
+        });
+        xButton.on('pointerout', () => {
+            xButton.setStyle(xStyle);
+        });
     }
 
     update(time: number, delta: number): void {
