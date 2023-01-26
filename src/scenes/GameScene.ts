@@ -67,7 +67,7 @@ export default class GameScene extends Phaser.Scene {
 
 
         //add back button
-        new BackButton(this)
+        new BackButton(this, 'menu')
 
         //score board
         let scoreText = this.add.text(16, 16, `Score: ${scoreTracker.getScore()}`, {
