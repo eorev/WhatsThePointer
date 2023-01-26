@@ -18,26 +18,23 @@ export default class Variables1 extends Phaser.Scene{
     private answer!: string;
     private answers!: Array<string>;
     private questions!: Array<string>;
-    private dragObj: any;
 
     private splashSound!: Phaser.Sound.BaseSound;
     private buttonSound!: Phaser.Sound.BaseSound;
     private correctSound!: Phaser.Sound.BaseSound;
     private wrongSound!: Phaser.Sound.BaseSound;
     private nextLevelSound!: Phaser.Sound.BaseSound;
-
-    private draggable!: Array<Phaser.GameObjects.Image>;
+    private resetButtonSound!: Phaser.Sound.BaseSound;
 
     constructor(){
         super('Variables1');
-        this.draggable = [this.mi, this.pbf, this.rbf];
     }
 
     preload(){
         this.load.image('Pond','assets/Pond.png');
-        this.load.image('MI','assets/MI.png');
-        this.load.image('PBF','assets/PBF.png');
-        this.load.image('RBF','assets/RBF.png');
+        this.load.image('Moorish Idol','assets/MI.png');
+        this.load.image('Pennant Butterflyfish','assets/PBF.png');
+        this.load.image('Racoon Butterflyfish','assets/RBF.png');
         this.load.image('Field','assets/field.png');
         this.load.image('Rocks','assets/rocks.png');
         this.load.image('Popup','assets/popup.png')
@@ -47,6 +44,7 @@ export default class Variables1 extends Phaser.Scene{
         this.load.audio('button', '/assets/sounds/button.mp3')
         this.load.audio('wrong', '/assets/sounds/wrong.mp3')
         this.load.audio('nextLevel', '/assets/sounds/nextLevel.mp3')
+        this.load.audio('resetButton', '/assets/sounds/resetButton.mp3')
         
     }
 
@@ -56,6 +54,7 @@ export default class Variables1 extends Phaser.Scene{
         this.buttonSound = this.sound.add('button');
         this.wrongSound = this.sound.add('wrong');
         this.nextLevelSound = this.sound.add('nextLevel');
+        this.resetButtonSound = this.sound.add('resetButton');
 
         this.count = 0;
         this.questions = [
@@ -81,14 +80,40 @@ export default class Variables1 extends Phaser.Scene{
 
         //Create drag and drop fish
         this.add.text(200,75,"Moorish Idol");
-        this.mi = this.add.image(275,150,'MI').setInteractive();
+        this.mi = this.add.image(275,150,'Moorish Idol').setInteractive();
+        this.mi.depth = 0
         
         this.add.text(200,225,'Pennant Butterflyfish');
-        this.pbf = this.add.image(275,300,'PBF').setInteractive();
+        this.pbf = this.add.image(275,300,'Pennant Butterflyfish').setInteractive();
+        this.pbf.depth = 0
         
         this.add.text(200,375,'Racoon Butterflyfish')
-        this.rbf = this.add.image(275,450,'RBF').setInteractive();
+        this.rbf = this.add.image(275,450,'Racoon Butterflyfish').setInteractive();
+        this.rbf.depth = 0
 
+        this.input.setDraggable(this.mi);
+        this.input.setDraggable(this.pbf);
+        this.input.setDraggable(this.rbf);
+
+        this.input.on('drag', (pointer: any, gameObject: {x: number, y: number, depth: number}, dragX: number, dragY: number) => {
+            gameObject.x = dragX;
+            gameObject.y = dragY;
+            gameObject.depth = 1;
+        });
+
+        //when the fish is on top of the pond it plays the splash sound
+        this.input.on('dragend', (pointer: any, gameObject: {x: number, y: number, depth: number, texture: any}) => {
+            if(gameObject.x > 50 && gameObject.x < 100 && gameObject.y > 275 && gameObject.y < 325){
+                this.splashSound.play();
+                gameObject.depth = 0;
+                this.code.setText(`Pond = ${gameObject.texture.key}`);
+                this.answer = gameObject.texture.key;
+            }
+            else {
+                this.code.setText("Pond = ");
+                this.answer = "";
+            }
+        });
 
         //Create view of students code
         this.add.text(500,175,"Code:").setFontSize(40);
@@ -106,7 +131,7 @@ export default class Variables1 extends Phaser.Scene{
         this.feedback.alpha=0;
 
         //Initiate drag and drop
-        this.input.on("pointerdown",this.startDrag,this);
+        //this.input.on("pointerdown",this.startDrag,this);
 
         //Creates a score tracker
         this.score = this.add.text(600, 5, `Score: ${ScoreTracker.getScore().toString()}`).setFontSize(30)
@@ -134,30 +159,18 @@ export default class Variables1 extends Phaser.Scene{
         xButton.on('pointerout', () => {
             xButton.setStyle(xStyle);
         });
+
+        var zone = this.add.zone(75, 300, 100, 100).setRectangleDropZone(100, 100);
+
+        this.input.on('drop', function (pointer: any, gameObject: any, dropZone: any) {
+            gameObject.x = dropZone.x;
+            gameObject.y = dropZone.y;
+        });
+
     }
 
     update(): void {
-        //Check for collision of fish and pond to change code respectively
-        if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.mi.getBounds())){
-            this.answer="Moorish Idol";
-            this.code.setText("Pond = "+this.answer);
-        }     
         
-        else if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.pbf.getBounds())){
-            this.answer="Pennant Butterflyfish";
-            this.code.setText("Pond = " + this.answer);
-        }     
-
-        else if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.rbf.getBounds())){
-            this.answer="Racoon Butterflyfish";
-            this.code.setText("Pond = " + this.answer);
-        }     
-
-        //Check if no fish are touching pond
-        else{
-            this.code.setText("Pond = ");
-            this.answer="";
-        }
     }
 
     //Checks if the user's answer is correct
@@ -180,6 +193,9 @@ export default class Variables1 extends Phaser.Scene{
             let close = this.add.text(325,450,"Close").setInteractive();
             close.setTint(0xff0000);
             close.setFontSize(26)
+            this.popup.setDepth(1);
+            this.feedback.setDepth(1);
+            close.setDepth(1);
             close.on("pointerdown",()=>{
                 this.feedback.alpha=0;
                 this.popup.alpha=0;
@@ -207,6 +223,9 @@ export default class Variables1 extends Phaser.Scene{
             let close = this.add.text(325,450,"Close").setInteractive();
             close.setTint(0xff0000);
             close.setFontSize(26)
+            this.popup.setDepth(1);
+            this.feedback.setDepth(1);
+            close.setDepth(1);
             close.on("pointerdown",()=>{
                 this.feedback.alpha=0;
                 this.popup.alpha=0;
@@ -224,11 +243,17 @@ export default class Variables1 extends Phaser.Scene{
             this.feedback.setText("I'm sorry, you set \nthe variable to \n" + this.answer + "\nbut you need to set \nthe variable to \n" + this.answers[this.count])
             this.feedback.setTint(0xFF0000);
             this.feedback.setFontSize(20)
+            //make the popup appear above the fish
+            this.popup.setDepth(1);
+            this.feedback.setDepth(2);
 
             //Close button to exit feedback
             let close = this.add.text(325,450,"Close").setInteractive();
             close.setTint(0xff0000);
             close.setFontSize(26)
+            this.popup.setDepth(1);
+            this.feedback.setDepth(1);
+            close.setDepth(1);
             close.on("pointerdown",()=>{
                 this.feedback.alpha=0;
                 this.popup.alpha=0;
@@ -239,7 +264,7 @@ export default class Variables1 extends Phaser.Scene{
     }
 
     resetFishPosition() {
-        this.buttonSound.play();
+        this.resetButtonSound.play();
         this.mi.x = 275;
         this.mi.y = 150;
         this.pbf.x = 275;
@@ -248,30 +273,6 @@ export default class Variables1 extends Phaser.Scene{
         this.rbf.y = 450;
     }
 
-    startDrag(pointer: Phaser.Input.Pointer, targets: Phaser.GameObjects.GameObject[]){
-        this.input.off('pointerdown', this.startDrag, this);
-        this.dragObj=targets[0];
-        this.input.on('pointermove', this.doDrag, this);
-        this.input.on('pointerup', this.stopDrag, this);
-    }
-    doDrag(pointer: Phaser.Input.Pointer){
-        this.dragObj.x=pointer.x;
-        this.dragObj.y=pointer.y;
-    }
     
-      stopDrag() {
-
-        this.input.on('pointerdown', this.startDrag, this);
-        this.input.off('pointermove', this.doDrag, this);
-        this.input.off('pointerup', this.stopDrag, this);
-
-        if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.mi.getBounds()) ||
-        Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.pbf.getBounds()) ||
-        Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.rbf.getBounds())){
-            //TODO: splash sound
-            this.splashSound.play();
-        }
-
-      }
 
 }

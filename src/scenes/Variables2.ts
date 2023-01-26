@@ -25,6 +25,7 @@ export default class Variables2 extends Phaser.Scene{
     private correctSound!: Phaser.Sound.BaseSound;
     private wrongSound!: Phaser.Sound.BaseSound;
     private nextLevelSound!: Phaser.Sound.BaseSound;
+    private resetButtonSound!: Phaser.Sound.BaseSound;
 
     private draggable!: Array<Phaser.GameObjects.Image>;
 
@@ -47,6 +48,7 @@ export default class Variables2 extends Phaser.Scene{
         this.load.audio('button', '/assets/sounds/button.mp3')
         this.load.audio('wrong', '/assets/sounds/wrong.mp3')
         this.load.audio('nextLevel', '/assets/sounds/nextLevel.mp3')
+        this.load.audio('resetButton', '/assets/sounds/resetButton.mp3')
         
     }
 
@@ -56,6 +58,7 @@ export default class Variables2 extends Phaser.Scene{
         this.buttonSound = this.sound.add('button');
         this.wrongSound = this.sound.add('wrong');
         this.nextLevelSound = this.sound.add('nextLevel');
+        this.resetButtonSound = this.sound.add('resetButton');
 
         this.count = 0;
         this.questions = [
@@ -242,7 +245,7 @@ export default class Variables2 extends Phaser.Scene{
     }
 
     resetFishPosition() {
-        this.buttonSound.play();
+        this.resetButtonSound.play();
         this.mi.x = 275;
         this.mi.y = 150;
         this.pbf.x = 275;

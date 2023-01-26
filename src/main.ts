@@ -6,7 +6,7 @@ import MenuScene from './scenes/MenuScene'
 
 // Variables game levels
 import Variables1 from './scenes/Variables1'
-//import Variables2 from './scenes/Variables2'
+import Variables2 from './scenes/Variables2'
 //import Variables3 from './scenes/Variables3'
 
 // Pointers game levels
