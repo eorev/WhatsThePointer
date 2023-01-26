@@ -35,28 +35,16 @@ export default class Pond1 extends Phaser.Scene{
     
     private answers!: Array<string>;
     private questions!: Array<string>;
-    
 
     private counter!: number;
+
+    private feedback!: Phaser.GameObjects.Text;
+    private popup!: Phaser.GameObjects.Image;
 
     constructor(){
         super('Pond1');
         this.answer = '';
-    }
-
-    preload(){
-        this.load.image('RBF Pond','assets/RBF_Pond.png');
-        this.load.image('PBF Pond','assets/PBF_Pond.png');
-        this.load.image('MI Pond','assets/MI_Pond.png');
-        this.load.image('field','assets/field.png');
-        this.load.image('rocks','assets/rocks.png');
-        this.load.image('RBF','assets/RBF.png')
-        this.load.image('MI','assets/MI.png')
-        this.load.image('PBF','assets/PBF.png')
-    }
-
-    create(){
-
+        
         this.questions = [
             "If we want the pointer to point to the Moorish \nIdol, which address does it need to hold?",
             "If the pointer holds the address of pond 2, \nwhat fish does it point to?",
@@ -68,7 +56,21 @@ export default class Pond1 extends Phaser.Scene{
             "Pennant Butterflyfish",
             "Racoon Butterflyfish"
         ];
+    }
 
+    preload(){
+        this.load.image('RBF Pond','assets/RBF_Pond.png');
+        this.load.image('PBF Pond','assets/PBF_Pond.png');
+        this.load.image('MI Pond','assets/MI_Pond.png');
+        this.load.image('field','assets/field.png');
+        this.load.image('rocks','assets/rocks.png');
+        this.load.image('RBF','assets/RBF.png')
+        this.load.image('MI','assets/MI.png')
+        this.load.image('PBF','assets/PBF.png')
+        this.load.image('Popup','assets/popup.png');
+    }
+
+    create(){
         // ~ Evan
         //field background
         let field = this.add.image(0,0,'field')
@@ -87,7 +89,6 @@ export default class Pond1 extends Phaser.Scene{
             this.scene.start('game');
         });
         // ~~
-    
 
         this.counter = 0;
         this.question = this.add.text(8,6,this.questions[this.counter]);
@@ -124,16 +125,6 @@ export default class Pond1 extends Phaser.Scene{
             }
         })
         
-        //Creates the first fish and allows it to be clicked as an answer
-        let rbf = new Fish("Racoon Butterflyfish", this.add.image(350,200,'RBF'))
-        rbf.image.setInteractive();
-        rbf.image.on("pointerdown",()=>{
-            if (!this.code2lock){
-                this.answer = "Racoon Butterflyfish";
-                this.code2.setText("Pointer* = " + this.answer);
-            }
-        })
-
         //Creates the second pond and allows it to be clicked as an answer
         let pond2 = this.add.text(150,275,"Pond 2");
         let pbfPond = new Pond("Pond 2",this.add.image(175,350,'PBF Pond'));
@@ -145,17 +136,6 @@ export default class Pond1 extends Phaser.Scene{
             }
         })
 
-        //Creates the first fish and allows it to be clicked as an answer
-        let pbf = new Fish('Pennant Butterflyfish',this.add.image(350,350,'PBF'))
-        pbf.image.setInteractive();
-        pbf.image.on("pointerdown",()=>{
-            if (!this.code2lock){
-                this.answer = "Pennant Butterflyfish";
-                this.code2.setText("Pointer* = " + this.answer);
-            }
-        })
-
-        
         //Creates the third pond and allows it to be clicked as an answer
         let pond3 = this.add.text(150,425,"Pond 3");
         let miPond = new Pond("Pond 3",this.add.image(175,500,'MI Pond'));
@@ -168,7 +148,30 @@ export default class Pond1 extends Phaser.Scene{
         })
 
         //Creates the first fish and allows it to be clicked as an answer
+        let rbf = new Fish("Racoon Butterflyfish", this.add.image(350,200,'RBF'))
+        this.add.text(300,125,'Racoon Butterflyfish')
+        rbf.image.setInteractive();
+        rbf.image.on("pointerdown",()=>{
+            if (!this.code2lock){
+                this.answer = "Racoon Butterflyfish";
+                this.code2.setText("Pointer* = " + this.answer);
+            }
+        })
+
+        //Creates the second fish and allows it to be clicked as an answer
+        let pbf = new Fish('Pennant Butterflyfish',this.add.image(350,350,'PBF'))
+        this.add.text(300,275,'Pennant Butterflyfish')
+        pbf.image.setInteractive();
+        pbf.image.on("pointerdown",()=>{
+            if (!this.code2lock){
+                this.answer = "Pennant Butterflyfish";
+                this.code2.setText("Pointer* = " + this.answer);
+            }
+        })
+
+        //Creates the third fish and allows it to be clicked as an answer
         let mi = new Fish("Moorish Idol",this.add.image(350,500,'MI'))
+        this.add.text(300,425,'Moorish Idol')
         mi.image.setInteractive();
         mi.image.on("pointerdown",()=>{
             if (!this.code2lock){
@@ -176,6 +179,12 @@ export default class Pond1 extends Phaser.Scene{
                 this.code2.setText("Pointer* = " + this.answer);
             }
         })
+
+        //create and hide feedback
+        this.popup = this.add.image(375,350,'Popup');
+        this.popup.alpha=0;
+        this.feedback = this.add.text(275,300,'');
+        this.feedback.alpha=0;
     }
 
     update(time: number, delta: number): void {
@@ -199,24 +208,24 @@ export default class Pond1 extends Phaser.Scene{
     //Checks if the user's answer is correct
     checkAnswer(){
         if (this.answer === this.answers[this.counter]){
-            // //displays feedback window
-            // this.popup.alpha = 1;
-            // this.feedback.alpha=1;
+            //displays feedback window
+            this.popup.alpha = 1;
+            this.feedback.alpha=1;
     
-            // //congrats message
-            // this.feedback.setText("Congratulations, you \nset the variable \nto the correct value!")
-            // this.feedback.setTint(0x00FF00);
-            // this.feedback.setFontSize(20);
+            //congrats message
+            this.feedback.setText("Congratulations, you \nset the variable \nto the correct value!")
+            this.feedback.setTint(0x00FF00);
+            this.feedback.setFontSize(20);
                 
-            // //Close button to exit window
-            // let close = this.add.text(325,450,"Close").setInteractive();
-            // close.setTint(0xff0000);
-            // close.setFontSize(26)
-            // close.on("pointerdown",()=>{
-            //     this.feedback.alpha=0;
-            //     this.popup.alpha=0;
-            //     close.destroy();
-            // });
+            //Close button to exit window
+            let close = this.add.text(325,450,"Close").setInteractive();
+            close.setTint(0xff0000);
+            close.setFontSize(26)
+            close.on("pointerdown",()=>{
+                this.feedback.alpha=0;
+                this.popup.alpha=0;
+                close.destroy();
+            });
 
             ScoreTracker.addScore();
             this.scoreText.setText(`Score: ${ScoreTracker.getScore()}`)
@@ -232,21 +241,21 @@ export default class Pond1 extends Phaser.Scene{
         }   
             else{
                 //Display feedback window
-                // this.popup.alpha=1;
-                // this.feedback.alpha=1;
-                // this.feedback.setText("I'm sorry, you set \nthe variable to \n" + this.answer + "\nbut you need to set \nthe variable to \n" + this.answers[this.count])
-                // this.feedback.setTint(0xFF0000);
-                // this.feedback.setFontSize(20)
+                this.popup.alpha=1;
+                this.feedback.alpha=1;
+                this.feedback.setText("I'm sorry, you set \nthe variable to \n" + this.answer + "\nbut you need to set \nthe variable to \n" + this.answers[this.counter])
+                this.feedback.setTint(0xFF0000);
+                this.feedback.setFontSize(20)
     
-                // //Close button to exit feedback
-                // let close = this.add.text(325,450,"Close").setInteractive();
-                // close.setTint(0xff0000);
-                // close.setFontSize(26)
-                // close.on("pointerdown",()=>{
-                //     this.feedback.alpha=0;
-                //     this.popup.alpha=0;
-                //     close.destroy();
-                // });
+                //Close button to exit feedback
+                let close = this.add.text(325,450,"Close").setInteractive();
+                close.setTint(0xff0000);
+                close.setFontSize(26)
+                close.on("pointerdown",()=>{
+                    this.feedback.alpha=0;
+                    this.popup.alpha=0;
+                    close.destroy();
+                });
             }
         }
 }
