@@ -3,23 +3,19 @@
 
 class ScoreTracker {
     public score: number = 0;
-    public correctQuestions: number = 0;
-    
+
     public addScore() {
         this.score += 100;
     }
 
-    public addQuestion() {
-        this.correctQuestions += 1;
+    public deductScore() {
+        this.score > 0 ? this.score -= 100 : this.score = 0;
     }
 
     public getScore() {
         return this.score;
     }
 
-    public getQuestionCount() {
-        return this.correctQuestions;
-    }
 }
 
 const scoreTracker = new ScoreTracker();
