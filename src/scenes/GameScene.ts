@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import BackButton from "../GlobalObjects";
 import scoreTracker from "../ScoreTracker";
 
 export default class GameScene extends Phaser.Scene {
@@ -65,24 +66,8 @@ export default class GameScene extends Phaser.Scene {
         });
 
 
-        let xButton = this.add.text(25, 550, '<- back');
-
-        //allows user to click on the X
-        xButton.setInteractive();
-        
-        //changes the style of the X when hovered over
-        let xStyle = { font: "bold 25px Arial", fill: "#03f0fc", boundsAlignH: "center", boundsAlignV: "middle" };
-        let selectedXStyle = { font: "bold 25px Arial", fill: "#5271FF", boundsAlignH: "center", boundsAlignV: "middle" };
-        xButton.setStyle(xStyle);
-        xButton.on('pointerover', () => {
-            xButton.setStyle(selectedXStyle);
-        });
-        xButton.on('pointerdown', () => {
-            this.scene.start('menu');
-        });
-        xButton.on('pointerout', () => {
-            xButton.setStyle(xStyle);
-        });
+        //add back button
+        new BackButton(this)
 
         //score board
         let scoreText = this.add.text(16, 16, `Score: ${scoreTracker.getScore()}`, {
