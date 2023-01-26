@@ -24,7 +24,7 @@ export default class InstructionsScene extends Phaser.Scene {
         instructions.setStyle(instructionsStyle);
 
         //add back button
-        new BackButton(this)
+        new BackButton(this, 'menu')
 
     }
 

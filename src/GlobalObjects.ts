@@ -1,7 +1,11 @@
 export default class BackButton extends Phaser.GameObjects.Container {
 
-    constructor(scene: Phaser.Scene) {
+    private location: string
+
+    constructor(scene: Phaser.Scene, location: string) {
         super(scene)
+
+        this.location = location
         this.button()
     }
 
@@ -22,7 +26,7 @@ export default class BackButton extends Phaser.GameObjects.Container {
         });
 
         button.on('pointerdown', () => {
-            this.scene.scene.start('menu');
+            this.scene.scene.start(this.location);
         });
 
         button.on('pointerout', () => {
