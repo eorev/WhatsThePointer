@@ -1,5 +1,4 @@
 import Phaser from "phaser";
-import ScoreTracker from "../ScoreTracker";
 
 export default class Variables1 extends Phaser.Scene{
     
@@ -19,6 +18,8 @@ export default class Variables1 extends Phaser.Scene{
     private questions!: Array<string>;
     private dragObj: any;
 
+    private splashSound!: Phaser.Sound.BaseSound;
+
     constructor(){
         super('Variables1');
     }
@@ -31,9 +32,13 @@ export default class Variables1 extends Phaser.Scene{
         this.load.image('Field','assets/field.png');
         this.load.image('Rocks','assets/rocks.png');
         this.load.image('Popup','assets/popup.png')
+
+        this.load.audio('splash', '/assets/splash.mp3')
+        
     }
 
     create(){
+        this.splashSound = this.sound.add('splash');
         this.count = 0;
         this.questions = [
             "Make the variable Pond hold the \nMoorish Idol",
@@ -169,10 +174,19 @@ export default class Variables1 extends Phaser.Scene{
         this.dragObj.y=pointer.y;
       }
     
-      stopDrag(){
+      stopDrag() {
+
         this.input.on('pointerdown', this.startDrag, this);
         this.input.off('pointermove', this.doDrag, this);
         this.input.off('pointerup', this.stopDrag, this);
+
+        if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.mi.getBounds()) ||
+        Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.pbf.getBounds()) ||
+        Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.rbf.getBounds())){
+            //TODO: splash sound
+            this.splashSound.play();
+        }
+
       }
 
 }
