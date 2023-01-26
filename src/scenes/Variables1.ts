@@ -24,6 +24,7 @@ export default class Variables1 extends Phaser.Scene{
     private buttonSound!: Phaser.Sound.BaseSound;
     private correctSound!: Phaser.Sound.BaseSound;
     private wrongSound!: Phaser.Sound.BaseSound;
+    private nextLevelSound!: Phaser.Sound.BaseSound;
 
     private draggable!: Array<Phaser.GameObjects.Image>;
 
@@ -41,10 +42,11 @@ export default class Variables1 extends Phaser.Scene{
         this.load.image('Rocks','assets/rocks.png');
         this.load.image('Popup','assets/popup.png')
 
-        this.load.audio('splash', '/assets/splash.mp3')
-        this.load.audio('correct', '/assets/correct.mp3')
-        this.load.audio('button', '/assets/button.mp3')
-        this.load.audio('wrong', '/assets/wrong.mp3')
+        this.load.audio('splash', '/assets/sounds/splash.mp3')
+        this.load.audio('correct', '/assets/sounds/correct.mp3')
+        this.load.audio('button', '/assets/sounds/button.mp3')
+        this.load.audio('wrong', '/assets/sounds/wrong.mp3')
+        this.load.audio('nextLevel', '/assets/sounds/nextLevel.mp3')
         
     }
 
@@ -53,6 +55,7 @@ export default class Variables1 extends Phaser.Scene{
         this.correctSound = this.sound.add('correct');
         this.buttonSound = this.sound.add('button');
         this.wrongSound = this.sound.add('wrong');
+        this.nextLevelSound = this.sound.add('nextLevel');
 
         this.count = 0;
         this.questions = [
@@ -162,6 +165,7 @@ export default class Variables1 extends Phaser.Scene{
         if (this.answer === this.answers[this.count]){
             ScoreTracker.addScore();
             this.correctSound.play();
+            this.resetFishPosition();
             this.score.setText(`Score: ${ScoreTracker.getScore().toString()}`)
             //displays feedback window
             this.popup.alpha = 1;
@@ -183,13 +187,15 @@ export default class Variables1 extends Phaser.Scene{
                 close.destroy();
             });
 
+            //Controls the flow of the questions
             if (this.count<2){
                 this.count++;
                 this.question.setText(this.questions[this.count])
             }
+            //If the user has completed all the questions, they are taken to the next level
             else{
-                this.count=0;
-                this.question.setText(this.questions[this.count])
+                this.nextLevelSound.play();
+                this.scene.start('Variables2');
         }}
         else if (this.answer === ""){
             this.popup.alpha=1;
