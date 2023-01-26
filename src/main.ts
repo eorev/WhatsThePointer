@@ -23,7 +23,9 @@ const config: Phaser.Types.Core.GameConfig = {
 		width: 800,
 		height: 600,
 	},
-	scene: [MenuScene,GameScene,InstructionsScene,Pointers1,Variables1, Variables2],
+
+	scene: [MenuScene,GameScene,InstructionsScene,Pointers1,Pointers2,Pointers3,Variables1],
+
 }
 
 export default new Phaser.Game(config)
