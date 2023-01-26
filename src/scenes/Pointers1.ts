@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import ScoreTracker from "../ScoreTracker";
+import { BackButton, ScoreDisplay } from "../GlobalObjects";
 
 class Pond{
 
@@ -26,7 +26,6 @@ export default class Pointers1 extends Phaser.Scene{
 
     private code1!: Phaser.GameObjects.Text;
     private code2!: Phaser.GameObjects.Text;
-    private scoreText!: Phaser.GameObjects.Text;
     private code1lock!: boolean;
     private code2lock!: boolean;
 
@@ -40,6 +39,8 @@ export default class Pointers1 extends Phaser.Scene{
 
     private feedback!: Phaser.GameObjects.Text;
     private popup!: Phaser.GameObjects.Image;
+
+    private scoreboard!: ScoreDisplay;
 
     constructor(){
         super('Pointers1');
@@ -80,24 +81,17 @@ export default class Pointers1 extends Phaser.Scene{
         let rocks = this.add.image(0,0,'rocks')
         rocks.setOrigin(0, 0)
 
-        //back button - returns to level select
-        let backBtn = this.add.text(8, 80, '<- Back');
-        backBtn.setInteractive();
-        backBtn.setColor("red")
-        backBtn.setFont("20px") 
-        backBtn.on('pointerdown', () => {
-            this.scene.start('game');
-        });
-        // ~~
 
         this.counter = 0;
         this.question = this.add.text(8,6,this.questions[this.counter]);
         this.question.setFont("28px") 
 
-        //score board
-        this.scoreText = this.add.text(16, 550, `Score: ${ScoreTracker.getScore()}`, {
-        fontSize: '32px',
-        color: '#FFFFFF' })
+
+        //add back button
+        new BackButton(this, 'game')
+
+        //scores
+        this.scoreboard = new ScoreDisplay(this, 15, 80)
 
         //Address and Data Value Title
         let addrTitle = this.add.text(125,100,"Addresses").setFontSize(20);
@@ -222,8 +216,7 @@ export default class Pointers1 extends Phaser.Scene{
                 close.destroy();
             });
 
-            ScoreTracker.addScore();
-            this.scoreText.setText(`Score: ${ScoreTracker.getScore()}`)
+            this.scoreboard.addScore();
     
             if (this.counter<2){
                 this.counter++;

@@ -25,6 +25,7 @@ export class BackButton extends Phaser.GameObjects.Container {
     };
 
     button.setStyle(buttonStyle);
+    button.depth = 3
 
     button.on("pointerover", () => {
       button.setStyle(selectedButtonStyle);
