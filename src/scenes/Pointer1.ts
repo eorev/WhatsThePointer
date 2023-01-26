@@ -22,11 +22,11 @@ class Fish{
     }
 }
 
-export default class Pond1 extends Phaser.Scene{
+export default class Pointer1 extends Phaser.Scene{
 
 
     constructor(){
-        super('Pond1');
+        super('Pointer1');
     }
 
     preload(){
@@ -105,7 +105,7 @@ export default class Pond1 extends Phaser.Scene{
                 questionCountText.setText(`Questions: ${ScoreTracker.getQuestionCount()}`)
                 question.setText(questions[counter]);
                 if (counter==3){
-                    this.scene.start('game')
+                    this.scene.start('Pointer2')
                 }
             }
             scoreText.setText(`Score: ${ScoreTracker.getScore()}`)
@@ -123,7 +123,7 @@ export default class Pond1 extends Phaser.Scene{
                 questionCountText.setText(`Questions: ${ScoreTracker.getQuestionCount()}`)
                 question.setText(questions[counter]);
                 if (counter==3){
-                    this.scene.start('game')
+                    this.scene.start('Pointer2')
                 }
             }
         })
@@ -141,7 +141,7 @@ export default class Pond1 extends Phaser.Scene{
                 questionCountText.setText(`Questions: ${ScoreTracker.getQuestionCount()}`)
                 question.setText(questions[counter]);
                 if (counter==3){
-                    this.scene.start('game')
+                    this.scene.start('Pointer2')
                 }
             }
         })
@@ -158,7 +158,7 @@ export default class Pond1 extends Phaser.Scene{
                 questionCountText.setText(`Questions: ${ScoreTracker.getQuestionCount()}`)
                 question.setText(questions[counter]);
                 if (counter==3){
-                    this.scene.start('game')
+                    this.scene.start('Pointer2')
                 }
             }
         })
@@ -177,7 +177,7 @@ export default class Pond1 extends Phaser.Scene{
                 questionCountText.setText(`Questions: ${ScoreTracker.getQuestionCount()}`)
                 question.setText(questions[counter]);
                 if (counter==3){
-                    this.scene.start('game')
+                    this.scene.start('Pointer2')
                 }
             }
         })
@@ -194,7 +194,7 @@ export default class Pond1 extends Phaser.Scene{
                 questionCountText.setText(`Questions: ${ScoreTracker.getQuestionCount()}`)
                 question.setText(questions[counter]);
                 if (counter==3){
-                    this.scene.start('game')
+                    this.scene.start('Pointer2')
                 }
             }
         })
