@@ -2,7 +2,7 @@
 //The score is increased by 100 points for each correct answer and the number of correct questions is increased by 1 for each correct answer.
 
 class ScoreTracker {
-    public score: number = 0;
+    private score: number = 0;
 
     public addScore() {
         this.score += 100;
