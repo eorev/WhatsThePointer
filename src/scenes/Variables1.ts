@@ -92,7 +92,25 @@ export default class Variables1 extends Phaser.Scene{
         this.feedback.alpha=0;
 
         //Initiate drag and drop
-        this.input.on("pointerdown",this.startDrag,this);
+        this.input.setDraggable([this.mi,this.pbf,this.rbf]);
+
+        this.input.on('dragstart', ()=>{});
+    
+        this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+    
+            gameObject.x = dragX;
+            gameObject.y = dragY;
+    
+        });
+    
+        this.input.on('dragend', ()=>{
+            if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.mi.getBounds()) ||
+        Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.pbf.getBounds()) ||
+        Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.rbf.getBounds())){
+            //TODO: splash sound
+            this.splashSound.play();
+        }
+        });
 
         //Creates a score tracker
         this.score = this.add.text(600, 5, `Score: ${ScoreTracker.getScore().toString()}`).setFontSize(30)
