@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { BackButton } from "../GlobalObjects";
 import ScoreTracker from "../ScoreTracker";
 
 export default class Variables2 extends Phaser.Scene{
@@ -119,24 +120,8 @@ export default class Variables2 extends Phaser.Scene{
 
         resetFish.on("pointerdown",this.resetFishPosition,this);
 
-        let xButton = this.add.text(25, 550, '<- back');
-
-        //allows user to click on the X
-        xButton.setInteractive();
-        xButton.on('pointerdown', () => {
-            this.scene.start('game');
-        });
-
-        //changes the style of the X when hovered over
-        let xStyle = { font: "bold 25px Arial", fill: "#03f0fc", boundsAlignH: "center", boundsAlignV: "middle" };
-        let selectedXStyle = { font: "bold 25px Arial", fill: "#5271FF", boundsAlignH: "center", boundsAlignV: "middle" };
-        xButton.setStyle(xStyle);
-        xButton.on('pointerover', () => {
-            xButton.setStyle(selectedXStyle);
-        });
-        xButton.on('pointerout', () => {
-            xButton.setStyle(xStyle);
-        });
+       //add back button
+        new BackButton(this, 'game')
     }
 
     update(): void {
