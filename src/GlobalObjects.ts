@@ -9,7 +9,7 @@ export class BackButton extends Phaser.GameObjects.Container {
   }
 
   button() {
-    let button = this.scene.add.text(25, 550, "<- back");
+    let button = this.scene.add.text(25, 550, "<- Back");
 
     //make button clickable
     button.setInteractive();
@@ -18,14 +18,10 @@ export class BackButton extends Phaser.GameObjects.Container {
     let buttonStyle = {
       font: "bold 25px Arial",
       fill: "#03f0fc",
-      boundsAlignH: "center",
-      boundsAlignV: "middle",
     };
     let selectedButtonStyle = {
       font: "bold 25px Arial",
       fill: "#5271FF",
-      boundsAlignH: "center",
-      boundsAlignV: "middle",
     };
 
     button.setStyle(buttonStyle);
@@ -67,10 +63,8 @@ export class ScoreDisplay extends Phaser.GameObjects.Container {
 
     //button styles
     let scoreStyle = {
-      font: "32px Arial",
-      fill: "#03f0fc",
-      boundsAlignH: "center",
-      boundsAlignV: "middle",
+      font: "28px Arial",
+      fill: "#67b82b",
     };
 
     this.score.setStyle(scoreStyle);
@@ -78,5 +72,15 @@ export class ScoreDisplay extends Phaser.GameObjects.Container {
 
   update() {
     this.score.setText(`Score: ${scoreTracker.getScore()}`);
+  }
+
+  addScore() {
+    scoreTracker.addScore();
+    this.update();
+  }
+
+  deductScore() {
+    scoreTracker.deductScore();
+    this.update();
   }
 }
