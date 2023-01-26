@@ -39,7 +39,7 @@ export default class GameScene extends Phaser.Scene {
 
         pointers.setInteractive();
         pointers.on('pointerdown',()=>{
-            this.scene.start("Pointer1")
+            this.scene.start("Pointers1")
         })
         pointers.setFontSize(40);
 
