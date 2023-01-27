@@ -2,18 +2,23 @@ import Phaser from "phaser";
 import { BackButton, MuteButton, ScoreDisplay } from "../GlobalObjects";
 
 export default class GameScene extends Phaser.Scene {
+    private muted!: MuteButton;
+
     constructor() {
         super('game')
     }
 
     preload() {
         this.load.image('background', 'assets/game_background.jpg')
+        this.load.audio('button', '/assets/sounds/button.mp3')
     }
 
     create() {
         let background = this.add.image(0, 0, 'background')
         //centers the image
         background.setOrigin(0, 0)
+
+        let buttonSound = this.sound.add('button');
 
         //creates a list of ponds displayed left to right that the player can click on
         /*let ponds = this.add.group();
@@ -34,12 +39,16 @@ export default class GameScene extends Phaser.Scene {
         variables.setInteractive();
         variables.on("pointerdown",()=>{
             this.scene.start('Variables1');
+            if(!this.muted.isMuted())
+                buttonSound.play();
         })
         variables.setFontSize(40)
 
         pointers.setInteractive();
         pointers.on('pointerdown',()=>{
             this.scene.start("Pointers1")
+            if(!this.muted.isMuted())
+                buttonSound.play();
         })
         pointers.setFontSize(40);
 
@@ -69,7 +78,7 @@ export default class GameScene extends Phaser.Scene {
         new BackButton(this, 'menu')
 
         //add mute button
-        new MuteButton(this)
+        this.muted = new MuteButton(this)
 
         //add score display
         new ScoreDisplay(this, 25, 15)
