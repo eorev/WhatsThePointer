@@ -6,6 +6,7 @@ class SoundManager {
 
     public toggle() {
         this.muted = !this.muted;
+        return this.muted
     }
 
     public isMuted() {

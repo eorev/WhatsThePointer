@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { BackButton, ScoreDisplay } from "../GlobalObjects";
+import { BackButton, MuteButton, ScoreDisplay } from "../GlobalObjects";
 
 class Pond{
 
@@ -41,6 +41,7 @@ export default class Pointers1 extends Phaser.Scene{
     private popup!: Phaser.GameObjects.Image;
 
     private scoreboard!: ScoreDisplay;
+    private muted!: MuteButton;
 
     constructor(){
         super('Pointers1');
@@ -89,6 +90,9 @@ export default class Pointers1 extends Phaser.Scene{
 
         //add back button
         new BackButton(this, 'game')
+
+        //add mute button
+        new MuteButton(this)
 
         //scores
         this.scoreboard = new ScoreDisplay(this, 15, 80)
