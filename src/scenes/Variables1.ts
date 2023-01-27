@@ -122,7 +122,8 @@ export default class Variables1 extends Phaser.Scene{
         this.code = this.add.text(500,225,"Pond = ").setFontSize(15);
 
         //Create check code button
-        let checkCode = this.add.text(500,400,"Check Code").setInteractive();
+        let checkCode = this.add.text(500,400,"[Check Code]").setInteractive();
+        checkCode.setFont('Arial').setFontSize(24)
         checkCode.on("pointerdown",this.checkAnswer,this)
 
         //Initiate feedback window

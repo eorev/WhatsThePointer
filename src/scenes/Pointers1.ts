@@ -105,6 +105,7 @@ export default class Pointers1 extends Phaser.Scene{
         this.code1 = this.add.text(500,250,"Pointer = ");
         this.code2 = this.add.text(500,300,"Pointer* = ");
         let checkCode = this.add.text(500,400,"Check Code").setInteractive();
+        checkCode.setFont('Arial').setFontSize(24)
         checkCode.on("pointerdown",this.checkAnswer,this);
 
         //Creates first pond and allows it to be clicked
