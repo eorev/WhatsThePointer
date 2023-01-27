@@ -9,7 +9,7 @@ export class BackButton extends Phaser.GameObjects.Container {
   }
 
   button() {
-    let button = this.scene.add.text(25, 550, "<- Back");
+    let button = this.scene.add.text(25, 550, "← Back");
 
     //make button clickable
     button.setInteractive();
@@ -38,6 +38,40 @@ export class BackButton extends Phaser.GameObjects.Container {
     button.on("pointerout", () => {
       button.setStyle(buttonStyle);
     });
+  }
+}
+
+//🔇🔊
+import soundManager from "../src/SoundManager";
+export class MuteButton extends Phaser.GameObjects.Container {
+
+  constructor(scene: Phaser.Scene) {
+    super(scene);
+
+    this.button();
+  }
+
+  button() {
+    let muted = soundManager.isMuted()
+    let button = this.scene.add.text(130, 552, this.text(muted)).setFont('Arial').setFontSize(24)
+
+    //make button clickable
+    button.setInteractive();
+    button.depth = 3
+
+    button.on("pointerdown", () => {
+      let status: boolean = soundManager.toggle()
+      button.setText(this.text(status));
+    });
+
+  }
+
+  text(status: boolean) {
+    return status ? '🔇' : '🔊'
+  }
+
+  isMuted() {
+    return soundManager.isMuted()
   }
 }
 

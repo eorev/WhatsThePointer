@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { BackButton, ScoreDisplay } from "../GlobalObjects";
+import { BackButton, MuteButton, ScoreDisplay } from "../GlobalObjects";
 
 export default class Variables1 extends Phaser.Scene{
     
@@ -26,6 +26,7 @@ export default class Variables1 extends Phaser.Scene{
     private resetButtonSound!: Phaser.Sound.BaseSound;
 
     private scoreboard!: ScoreDisplay;
+    private muted!: MuteButton;
 
     constructor(){
         super('Variables1');
@@ -110,7 +111,6 @@ export default class Variables1 extends Phaser.Scene{
         //when the fish is on top of the pond it plays the splash sound
         this.input.on('dragend', (pointer: any, gameObject: {x: number, y: number, depth: number, texture: any}) => {
             if(gameObject.x > 50 && gameObject.x < 100 && gameObject.y > 275 && gameObject.y < 325){
-                this.splashSound.play();
                 gameObject.depth = 0;
             }
         });
@@ -148,6 +148,9 @@ export default class Variables1 extends Phaser.Scene{
 
         //add back button
         new BackButton(this, 'game')
+
+        //add mute button
+        this.muted = new MuteButton(this)
 
         //scores
         this.scoreboard = new ScoreDisplay(this, 15, 80)
@@ -187,7 +190,9 @@ export default class Variables1 extends Phaser.Scene{
             this.code.setText(`Pond = ${gameObject.texture.key}`);
             this.answer = gameObject.texture.key;
 
-            console.log(gameObject)
+            if(!this.muted.isMuted())
+                this.splashSound.play();
+
         });
 
     }
@@ -200,7 +205,10 @@ export default class Variables1 extends Phaser.Scene{
     checkAnswer(){
         if (this.answer === this.answers[this.count]){
             this.scoreboard.addScore();
-            this.correctSound.play();
+
+            if(!this.muted.isMuted())
+                this.correctSound.play();
+
             this.resetFishPosition();
             //displays feedback window
             this.popup.alpha = 1;
@@ -221,7 +229,8 @@ export default class Variables1 extends Phaser.Scene{
             close.on("pointerdown",()=>{
                 this.feedback.alpha=0;
                 this.popup.alpha=0;
-                this.buttonSound.play();
+                if(!this.muted.isMuted())
+                    this.buttonSound.play();
                 close.destroy();
             });
 
@@ -232,7 +241,8 @@ export default class Variables1 extends Phaser.Scene{
             }
             //If the user has completed all the questions, they are taken to the next level
             else{
-                this.nextLevelSound.play();
+                if(!this.muted.isMuted())
+                    this.nextLevelSound.play();
                 this.scene.start('Variables2');
         }}
         else if (this.answer === ""){
@@ -251,13 +261,15 @@ export default class Variables1 extends Phaser.Scene{
             close.on("pointerdown",()=>{
                 this.feedback.alpha=0;
                 this.popup.alpha=0;
-                this.buttonSound.play();
+                if(!this.muted.isMuted())
+                    this.buttonSound.play();
                 close.destroy();
             });
         }
         else{
             this.scoreboard.deductScore();
-            this.wrongSound.play();
+            if(!this.muted.isMuted())
+                this.wrongSound.play();
             //Display feedback window
             this.popup.alpha=1;
             this.feedback.alpha=1;
@@ -278,7 +290,8 @@ export default class Variables1 extends Phaser.Scene{
             close.on("pointerdown",()=>{
                 this.feedback.alpha=0;
                 this.popup.alpha=0;
-                this.buttonSound.play();
+                if(!this.muted.isMuted())
+                    this.buttonSound.play();
                 close.destroy();
             });
         }
@@ -289,7 +302,9 @@ export default class Variables1 extends Phaser.Scene{
         this.code.setText("Pond = ");
         this.answer = "";
 
-        this.resetButtonSound.play();
+        if(!this.muted.isMuted())
+            this.resetButtonSound.play();
+        
         this.mi.x = 275;
         this.mi.y = 150;
         this.pbf.x = 275;
