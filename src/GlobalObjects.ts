@@ -118,4 +118,9 @@ export class ScoreDisplay extends Phaser.GameObjects.Container {
     scoreTracker.deductScore();
     this.update();
   }
+
+  resetScore() {
+    scoreTracker.setScore(0);
+    this.update();
+  }
 }
