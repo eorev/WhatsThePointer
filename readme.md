@@ -14,7 +14,7 @@
 Tyler - created artwork for fish and ponds, and developed the first level to a working functionality so the user can play the game. This includes all of the questions,
 answers, and code behind the scenes of running the first level.
 
-Katie - added the text for score and question count, haven't been able to get it incrementing propperly yet still working on it
+Katie - added the text for score and question count, got it working with Ethans help. Changed menu background to fit game better.
 
 Evan - formatted the pond gameplay scene and added some backgrounds and extra touches to enhance it. Added a back button too.
 
