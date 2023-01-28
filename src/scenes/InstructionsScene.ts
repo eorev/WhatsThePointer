@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import BackButton from "../GlobalObjects";
+import ScoreTracker from "../ScoreTracker";
 
 export default class InstructionsScene extends Phaser.Scene {
 
@@ -11,22 +11,26 @@ export default class InstructionsScene extends Phaser.Scene {
     private textBub!: Phaser.GameObjects.Image
     private instruct!: Phaser.GameObjects.Text
 
+    private code!: Phaser.GameObjects.Text;
+    private score!: Phaser.GameObjects.Text;
+
     private feedback!: Phaser.GameObjects.Text;
     private question!: Phaser.GameObjects.Text;
-    private code!: Phaser.GameObjects.Text;
-
+  
     private count!: number;
     private answer!: string;
     private answers!: Array<string>;
     private questions!: Array<string>;
     private dragObj: any;
 
+    private splashSound!: Phaser.Sound.BaseSound;
+    private draggable!: Array<Phaser.GameObjects.Image>;
+
     constructor() {
         super('instructions')
     }
 
     preload() {
-<<<<<<< HEAD
         //this.load.image('instructionsBackground', '/assets/black.png')
         this.load.image('Pond','assets/Pond.png');
         this.load.image('MI','assets/MI.png');
@@ -44,30 +48,19 @@ export default class InstructionsScene extends Phaser.Scene {
     }
 
     create() {
-=======
-        this.load.image('background', 'assets/game_background.jpg')
-    }
-
-    create() {
-        let background = this.add.image(0, 0, 'background')
-        //centers the image
-        background.setOrigin(0, 0)
->>>>>>> main
-
+        this.count = 0;
         //list of questions and answers 
         this.questions = [
-            "Make the variable Pond hold the \nMoorish Idol",
-            "Make the variable Pond hold the \nPennant Butterflyfish",
-            "Make the variable Pond hold the \nRacoon Butterflyfish"
+            "Drag the Morish Idol into the pond"
         ]
-        this.answers = ["Moorish Idol","Pennant Butterflyfish","Racoon Butterflyfish"]
+        this.answers = ["Moorish Idol"]
 
         //Create Background of level
         this.add.image(0,0,'Field').setOrigin(0,0);
         this.add.image(0,0,'Rocks').setOrigin(0,0);
 
         this.question= this.add.text(8,6,this.questions[this.count]);
-        this.question.setFontSize(30);
+        this.question.setFontSize(24);
 
         //create pond
         this.pond = this.add.image(75,300,'Pond');
@@ -88,15 +81,13 @@ export default class InstructionsScene extends Phaser.Scene {
         //create text bubble popup
         this.textBub = this.add.image(700, 350, 'TB')
         this.textBub.alpha=0
-        this.instruct = this.add.text(700, 350, "")
+        this.instruct = this.add.text(600, 300, "")
         this.instruct.alpha =1
+        this.instruct.setFontSize(10)
 
-        //explain question and how to answer it
-        this.textBub.alpha=1;
-            this.instruct.alpha=1;
-            this.instruct.setText('Click on the correct \npond of fish when you \nare asked a question.\n The more questions you\n answer, the more you\n level up. Keep playing\n to upgrade your fishing\n poles or unlock\n new places to fish\n with new fish.\n Good luck!')
-            this.instruct.setTint(0xFF0000);
-            this.instruct.setFontSize(20)
+        //Create check code button
+        let checkCode = this.add.text(500,250,"Check Code").setInteractive();
+        checkCode.on("pointerdown",this.checkAnswer,this)
         
 
         //popup for instructions 
@@ -118,6 +109,10 @@ export default class InstructionsScene extends Phaser.Scene {
             this.feedback.alpha=0;
             this.popup.alpha=0;
             ixButton.destroy();
+            //popup on where to start
+            this.textBub.alpha=1;
+            this.instruct.alpha=1;
+            this.instruct.setText('Answer the first\nquestion in the\ntop left corner')
         });
         //changed style when hovering
         let ixStyle = { font: "bold 50px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
@@ -130,8 +125,29 @@ export default class InstructionsScene extends Phaser.Scene {
             ixButton.setStyle(ixStyle);
         });
 
+        //Initiate drag and drop
+        this.input.on("pointerdown",this.startDrag,this);
 
-<<<<<<< HEAD
+        //Creates a score tracker
+        this.score = this.add.text(600, 5, `Score: ${ScoreTracker.getScore().toString()}`).setFontSize(30)
+
+        //creates reset fish button
+        let resetFish = this.add.text(600,30,"Reset Fish").setInteractive().setFontSize(30)
+
+        resetFish.on("pointerdown",this.resetFishPosition,this);
+
+        //let fxButton = this.add.text(25, 550, '<- back');
+        
+        //walk through question...
+
+        //instruct popup setup 
+        this.textBub.alpha=0;
+        this.instruct.alpha=0;
+            //this.instruct.setText('First, drag the \nMorish Idol into\n the pond.')
+            this.instruct.setTint(0xFF0000);
+            this.instruct.setFontSize(20)
+
+
 
         //exit how to play button creation
         let xButton = this.add.text(725, 25, 'X');
@@ -152,10 +168,6 @@ export default class InstructionsScene extends Phaser.Scene {
         xButton.on('pointerout', () => {
             xButton.setStyle(xStyle);
         });
-=======
-        //add back button
-        new BackButton(this, 'menu')
->>>>>>> main
 
         //Create view of students code
         this.add.text(500,175,"Code:").setFontSize(40);
@@ -169,8 +181,144 @@ export default class InstructionsScene extends Phaser.Scene {
 
     }
 
-    update() {
 
+    startDrag(pointer: Phaser.Input.Pointer, targets: Phaser.GameObjects.GameObject[]){
+        this.input.off('pointerdown', this.startDrag, this);
+        this.dragObj=targets[0];
+        this.input.on('pointermove', this.doDrag, this);
+        this.input.on('pointerup', this.stopDrag, this);
+        this.textBub.alpha=0
+        this.instruct.alpha=0
+    }
+    doDrag(pointer: Phaser.Input.Pointer){
+        this.dragObj.x=pointer.x;
+        this.dragObj.y=pointer.y;
+    }
+    stopDrag() {
+
+        this.input.on('pointerdown', this.startDrag, this);
+        this.input.off('pointermove', this.doDrag, this);
+        this.input.off('pointerup', this.stopDrag, this);
+
+        if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.mi.getBounds()) ||
+        Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.pbf.getBounds()) ||
+        Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.rbf.getBounds())){
+            //TODO: splash sound
+            this.splashSound.play();
+        }
+    
+        //this.textBub.alpha=1;
+        //this.instruct.alpha=1;
+        //this.instruct.setText('Answer the first\nquestion in the\ntop left corner')
+
+      }
+      resetFishPosition() {
+        this.mi.x = 275;
+        this.mi.y = 150;
+        this.pbf.x = 275;
+        this.pbf.y = 300;
+        this.rbf.x = 275;
+        this.rbf.y = 450;
+    }
+    //Checks if the user's answer is correct
+    checkAnswer(){
+        if (this.answer === this.answers[this.count]){
+            ScoreTracker.addScore();
+            this.score.setText(`Score: ${ScoreTracker.getScore().toString()}`)
+
+            //displays feedback window
+            this.popup.alpha = 1;
+            this.feedback.alpha=1;
+
+            //congrats message
+            this.feedback.setText("Congratulations, you \nset the variable \nto the correct value!")
+            this.feedback.setTint(0x00FF00);
+            this.feedback.setFontSize(20);
+            
+            //Close button to exit window
+            let close = this.add.text(325,450,"Close").setInteractive();
+            close.setTint(0xff0000);
+            close.setFontSize(26)
+            close.on("pointerdown",()=>{
+                this.feedback.alpha=0;
+                this.popup.alpha=0;
+                close.destroy();
+            
+            });
+            
+
+            if (this.count<1){
+                this.count++;
+                this.question.setText(this.questions[this.count])
+            }
+            else{
+                this.count=0;
+                this.question.setText(this.questions[this.count])
+        }}
+        else if (this.answer === ""){
+            this.popup.alpha=1;
+            this.feedback.alpha=1;
+            this.feedback.setText("I'm sorry, you didn't \nset the variable to \nanything. Please try \nagain.")
+            this.feedback.setTint(0xFF0000);
+            this.feedback.setFontSize(20)
+
+            let close = this.add.text(325,450,"Close").setInteractive();
+            close.setTint(0xff0000);
+            close.setFontSize(26)
+            close.on("pointerdown",()=>{
+                this.feedback.alpha=0;
+                this.popup.alpha=0;
+                close.destroy();
+            });
+        }
+        else{
+            ScoreTracker.deductScore();
+            this.score.setText(`Score: ${ScoreTracker.getScore().toString()}`)
+            //Display feedback window
+            this.popup.alpha=1;
+            this.feedback.alpha=1;
+            this.feedback.setText("I'm sorry, you set \nthe variable to \n" + this.answer + "\nbut you need to set \nthe variable to \n" + this.answers[this.count])
+            this.feedback.setTint(0xFF0000);
+            this.feedback.setFontSize(20)
+
+            //Close button to exit feedback
+            let close = this.add.text(325,450,"Close").setInteractive();
+            close.setTint(0xff0000);
+            close.setFontSize(26)
+            close.on("pointerdown",()=>{
+                this.feedback.alpha=0;
+                this.popup.alpha=0;
+                close.destroy();
+            });
+        }
     }
 
+    update() {
+        //Check for collision of fish and pond to change code respectively
+        if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.mi.getBounds())){
+            this.answer="Moorish Idol";
+            this.code.setText("Pond = "+this.answer)
+            //popup to click check code button
+            this.textBub.alpha=1;
+            this.instruct.alpha=1;
+            this.instruct.setText('Now, click on\n the "check code"\nbutton');
+        }     
+        
+        else if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.pbf.getBounds())){
+            this.answer="Pennant Butterflyfish";
+            this.code.setText("Pond = " + this.answer);
+        }     
+
+        else if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.rbf.getBounds())){
+            this.answer="Racoon Butterflyfish";
+            this.code.setText("Pond = " + this.answer);
+        }     
+
+        //Check if no fish are touching pond
+        else{
+            this.code.setText("Pond = ");
+            this.answer="";
+        }
+    }
+    
 }
