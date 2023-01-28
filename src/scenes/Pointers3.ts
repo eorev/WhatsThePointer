@@ -230,7 +230,7 @@ export default class Pointers3 extends Phaser.Scene{
                 this.question.setText(this.questions[this.counter])
             }
             else{
-                this.scene.start('game')
+                this.scene.start('end')
             } 
         }   
             else{

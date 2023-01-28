@@ -13,6 +13,7 @@ import Variables3 from './scenes/Variables3'
 import Pointers1 from './scenes/Pointers1'
 import Pointers2 from './scenes/Pointers2'
 import Pointers3 from './scenes/Pointers3'
+import EndScene from './scenes/EndScene'
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
@@ -24,7 +25,7 @@ const config: Phaser.Types.Core.GameConfig = {
 		height: 600,
 	},
 
-	scene: [MenuScene,GameScene,InstructionsScene,Pointers1,Pointers2,Pointers3,Variables1, Variables2, Variables3],
+	scene: [MenuScene,GameScene,InstructionsScene,Pointers1,Pointers2,Pointers3,Variables1, Variables2, Variables3, EndScene],
 
 }
 

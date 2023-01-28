@@ -290,7 +290,7 @@ export default class Variables3 extends Phaser.Scene{
             else{
                 if(!this.muted.isMuted())
                     this.nextLevelSound.play();
-                this.scene.start('game');
+                this.scene.start('end');
         }}
         else if (this.answer === ""){
             this.popup.alpha=1;
