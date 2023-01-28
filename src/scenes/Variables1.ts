@@ -192,7 +192,6 @@ export default class Variables1 extends Phaser.Scene{
 
             if(!this.muted.isMuted())
                 this.splashSound.play();
-
         });
 
     }

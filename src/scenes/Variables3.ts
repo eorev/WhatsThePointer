@@ -1,17 +1,19 @@
 import Phaser from "phaser";
 import { BackButton, MuteButton, ScoreDisplay } from "../GlobalObjects";
 
-export default class Variables2 extends Phaser.Scene{
+export default class Variables3 extends Phaser.Scene{
     
     private mi!: Phaser.GameObjects.Image; //Moorish Idol
     private pbf!: Phaser.GameObjects.Image; //Pennant Butterflyfish
     private rbf!: Phaser.GameObjects.Image; //Racoon Butterflyfish
-    private pond!: Phaser.GameObjects.Image;
+    private pond1!: Phaser.GameObjects.Image;
+    private pond2!: Phaser.GameObjects.Image;
     private popup!: Phaser.GameObjects.Image;
 
     private feedback!: Phaser.GameObjects.Text;
     private question!: Phaser.GameObjects.Text;
-    private code!: Phaser.GameObjects.Text;
+    private code1!: Phaser.GameObjects.Text;
+    private code2!: Phaser.GameObjects.Text;
 
     private count!: number;
     private answer!: string;
@@ -29,7 +31,7 @@ export default class Variables2 extends Phaser.Scene{
     private muted!: MuteButton;
 
     constructor(){
-        super('Variables2');
+        super('Variables3');
     }
 
     preload(){
@@ -64,25 +66,29 @@ export default class Variables2 extends Phaser.Scene{
         this.resetButtonSound = this.sound.add('resetButton');
 
         this.count = 0;
-
         this.questions = [
-            'Read the code and select the correct fish.'
+            "Make the variable Pond1 hold the \nMoorish Idol",
+            "Make the variable Pond2 hold the \nPennant Butterflyfish",
+            "Make the variable Pond1 hold the \nRacoon Butterflyfish"
         ]
         this.answers = [
-            "Racoon Butterflyfish",
-            "Moorish Idol",
-            "Pennant Butterflyfish"
+            "Moorish IdolPond1",
+            "Pennant ButterflyfishPond2",
+            "Racoon ButterflyfishPond1"
         ]
 
         //Create Background of level
         this.add.image(0,0,'Field').setOrigin(0,0);
         this.add.image(0,0,'Rocks').setOrigin(0,0);
 
-        this.question= this.add.text(8,6,this.questions[0]);
+        this.question= this.add.text(8,6,this.questions[this.count]);
         this.question.setFontSize(30);
 
         //create pond
-        this.pond = this.add.image(75,300,'Pond');
+        this.pond1 = this.add.image(75,200,'Pond');
+        this.add.text(50,150,"Pond 1");
+        this.pond2 = this.add.image(75,400,'Pond');
+        this.add.text(50,350,"Pond 2");
 
         //Create drag and drop fish
         this.add.text(200,75,"Moorish Idol");
@@ -115,9 +121,11 @@ export default class Variables2 extends Phaser.Scene{
         });
 
         
+
         //Create view of students code
         this.add.text(500,175,"Code:").setFontSize(40);
-        this.code = this.add.text(500,225,"Pond = ").setFontSize(15);
+        this.code1 = this.add.text(500,225,"Pond1 = ").setFontSize(15);
+        this.code2 = this.add.text(500,250,"Pond2 = ").setFontSize(15);
 
         //Create check code button
         let checkCode = this.add.text(500,400,"Check Code").setInteractive();
@@ -154,8 +162,7 @@ export default class Variables2 extends Phaser.Scene{
         this.scoreboard = new ScoreDisplay(this, 15, 80)
 
 
-        var zone = this.add.zone(75, 300, 100, 100).setRectangleDropZone(125, 100);
-        this.code.setText("Pond = " + this.answers[this.count]);
+        var zone1 = this.add.zone(75, 200, 100, 100).setRectangleDropZone(125, 100);
 
         this.input.on('drop',  (pointer: any, gameObject: any, dropZone: any) => {
 
@@ -163,37 +170,79 @@ export default class Variables2 extends Phaser.Scene{
             this.pbf.alpha=1;
             this.rbf.alpha=1;
 
-            switch(gameObject.texture.key) {
-                case 'Moorish Idol':
-                    this.pond.setTexture('MI Pond')
-                    gameObject.x = 275;
-                    gameObject.y = 150;
+            if (dropZone === zone1) {
+                switch(gameObject.texture.key) {
+                    case 'Moorish Idol':
+                        this.pond1.setTexture('MI Pond')
+                        gameObject.x = 275;
+                        gameObject.y = 150;
+                        this.code1.setText(`Pond1 = ${gameObject.texture.key}`);
+                        this.answer = `${gameObject.texture.key}` + "Pond1";
+                        break;
+                    case 'Pennant Butterflyfish':
+                        this.pond1.setTexture('PBF Pond')
+                        gameObject.x = 275;
+                        gameObject.y = 300;
+                        this.code1.setText(`Pond1 = ${gameObject.texture.key}`);
+                        this.answer = `${gameObject.texture.key}` + "Pond1";
+                        break;
+                    case 'Racoon Butterflyfish':
+                        this.pond1.setTexture('RBF Pond')
+                        gameObject.x = 275;
+                        gameObject.y = 450;
+                        this.code1.setText(`Pond1 = ${gameObject.texture.key}`);
+                        this.answer = `${gameObject.texture.key}` + "Pond1";
                     break;
-                case 'Pennant Butterflyfish':
-                    this.pond.setTexture('PBF Pond')
-                    gameObject.x = 275;
-                    gameObject.y = 300;
+                    default:
+                        this.pond1.setTexture('Pond')
+                        this.code1.setText(`Pond1 = `);
+                        break;
+                }
+        }
+
+        var zone2 = this.add.zone(75, 400, 100, 100).setRectangleDropZone(125, 100);
+
+        this.input.on('drop',  (pointer: any, gameObject: any, dropZone: any) => {
+            this.mi.alpha=1;
+            this.pbf.alpha=1;
+            this.rbf.alpha=1;
+
+            if (dropZone === zone2) {
+                switch(gameObject.texture.key) {
+                    case 'Moorish Idol':
+                        this.pond2.setTexture('MI Pond')
+                        gameObject.x = 275;
+                        gameObject.y = 150;
+                        this.code2.setText(`Pond2 = ${gameObject.texture.key}`);
+                        this.answer = `${gameObject.texture.key}` + "Pond2";
+                        break;
+                    case 'Pennant Butterflyfish':
+                        this.pond2.setTexture('PBF Pond')
+                        gameObject.x = 275;
+                        gameObject.y = 300;
+                        this.code2.setText(`Pond2 = ${gameObject.texture.key}`);
+                        this.answer = `${gameObject.texture.key}` + "Pond2";
+                        break;
+                    case 'Racoon Butterflyfish':
+                        this.pond2.setTexture('RBF Pond')
+                        gameObject.x = 275;
+                        gameObject.y = 450;
+                        this.code2.setText(`Pond2 = ${gameObject.texture.key}`);
+                        this.answer = `${gameObject.texture.key}` + "Pond2";
                     break;
-                case 'Racoon Butterflyfish':
-                    this.pond.setTexture('RBF Pond')
-                    gameObject.x = 275;
-                    gameObject.y = 450;
-                break;
-                default:
-                    this.pond.setTexture('Pond')
-                    break;
-            }
+                    default:
+                        this.pond2.setTexture('Pond')
+                        this.code2.setText(`Pond2 = `);
+                        break;
+                }
+        }
 
             gameObject.alpha=0.35;
             
-            this.answer = gameObject.texture.key;
-
             if(!this.muted.isMuted())
                 this.splashSound.play();
-
         });
-
-    }
+    })}
 
     update(): void {
         
@@ -235,14 +284,13 @@ export default class Variables2 extends Phaser.Scene{
             //Controls the flow of the questions
             if (this.count<2){
                 this.count++;
-                this.code.setText("Pond = " + this.answers[this.count]);
+                this.question.setText(this.questions[this.count])
             }
-
             //If the user has completed all the questions, they are taken to the next level
             else{
                 if(!this.muted.isMuted())
                     this.nextLevelSound.play();
-                this.scene.start('Variables3');
+                this.scene.start('GameScene');
         }}
         else if (this.answer === ""){
             this.popup.alpha=1;
@@ -298,7 +346,8 @@ export default class Variables2 extends Phaser.Scene{
 
     resetFishPosition() {
         //clear text
-        this.code.setText("Pond = ");
+        this.code1.setText("Pond1 = ");
+        this.code2.setText("Pond2 = ");
         this.answer = "";
 
         if(!this.muted.isMuted())
@@ -315,7 +364,8 @@ export default class Variables2 extends Phaser.Scene{
         this.pbf.alpha=1;
         this.rbf.alpha=1;
 
-        this.pond.setTexture('Pond')
+        this.pond1.setTexture('Pond')
+        this.pond2.setTexture('Pond')
     }
 
     
