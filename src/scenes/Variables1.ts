@@ -102,14 +102,14 @@ export default class Variables1 extends Phaser.Scene{
         this.input.setDraggable(this.pbf);
         this.input.setDraggable(this.rbf);
 
-        this.input.on('drag', (pointer: any, gameObject: {x: number, y: number, depth: number}, dragX: number, dragY: number) => {
+        this.input.on('drag', (_pointer: any, gameObject: {x: number, y: number, depth: number}, dragX: number, dragY: number) => {
             gameObject.x = dragX;
             gameObject.y = dragY;
             gameObject.depth = 1;
         });
 
         //when the fish is on top of the pond it plays the splash sound
-        this.input.on('dragend', (pointer: any, gameObject: {x: number, y: number, depth: number, texture: any}) => {
+        this.input.on('dragend', (_pointer: any, gameObject: {x: number, y: number, depth: number, texture: any}) => {
             if(gameObject.x > 50 && gameObject.x < 100 && gameObject.y > 275 && gameObject.y < 325){
                 gameObject.depth = 0;
             }
@@ -156,9 +156,8 @@ export default class Variables1 extends Phaser.Scene{
         this.scoreboard = new ScoreDisplay(this, 15, 80)
 
 
-        var zone = this.add.zone(75, 300, 100, 100).setRectangleDropZone(125, 100);
 
-        this.input.on('drop',  (pointer: any, gameObject: any, dropZone: any) => {
+        this.input.on('drop',  (_pointer: any, gameObject: any, _dropZone: any) => {
 
             this.mi.alpha=1;
             this.pbf.alpha=1;
