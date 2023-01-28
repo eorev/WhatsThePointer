@@ -64,22 +64,21 @@ export default class Variables2 extends Phaser.Scene{
         this.resetButtonSound = this.sound.add('resetButton');
 
         this.count = 0;
+
         this.questions = [
-            "Make the variable Pond hold the \nMoorish Idol",
-            "Make the variable Pond hold the \nPennant Butterflyfish",
-            "Make the variable Pond hold the \nRacoon Butterflyfish"
+            'Read the code and select the correct fish.'
         ]
         this.answers = [
+            "Racoon Butterflyfish",
             "Moorish Idol",
-            "Pennant Butterflyfish",
-            "Racoon Butterflyfish"
+            "Pennant Butterflyfish"
         ]
 
         //Create Background of level
         this.add.image(0,0,'Field').setOrigin(0,0);
         this.add.image(0,0,'Rocks').setOrigin(0,0);
 
-        this.question= this.add.text(8,6,this.questions[this.count]);
+        this.question= this.add.text(8,6,this.questions[0]);
         this.question.setFontSize(30);
 
         //create pond
@@ -156,6 +155,7 @@ export default class Variables2 extends Phaser.Scene{
 
 
         var zone = this.add.zone(75, 300, 100, 100).setRectangleDropZone(125, 100);
+        this.code.setText("Pond = " + this.answers[this.count]);
 
         this.input.on('drop',  (pointer: any, gameObject: any, dropZone: any) => {
 
@@ -186,7 +186,6 @@ export default class Variables2 extends Phaser.Scene{
 
             gameObject.alpha=0.35;
             
-            this.code.setText(`Pond = ${gameObject.texture.key}`);
             this.answer = gameObject.texture.key;
 
             if(!this.muted.isMuted())
@@ -236,13 +235,14 @@ export default class Variables2 extends Phaser.Scene{
             //Controls the flow of the questions
             if (this.count<2){
                 this.count++;
-                this.question.setText(this.questions[this.count])
+                this.code.setText("Pond = " + this.answers[this.count]);
             }
+
             //If the user has completed all the questions, they are taken to the next level
             else{
                 if(!this.muted.isMuted())
                     this.nextLevelSound.play();
-                this.scene.start('Variables2');
+                this.scene.start('Variables3');
         }}
         else if (this.answer === ""){
             this.popup.alpha=1;
