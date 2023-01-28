@@ -24,7 +24,7 @@ const config: Phaser.Types.Core.GameConfig = {
 		height: 600,
 	},
 
-	scene: [MenuScene,GameScene,InstructionsScene,Pointers1,Pointers2,Pointers3,Variables1],
+	scene: [MenuScene,GameScene,InstructionsScene,Pointers1,Pointers2,Pointers3,Variables1, Variables2],
 
 }
 
