@@ -102,9 +102,6 @@ export default class Pointers2 extends Phaser.Scene{
         color: '#FFFFFF' })
 
         //Address and Data Value Title
-        let addrTitle = this.add.text(125,100,"Addresses").setFontSize(20);
-        let dataTitle = this.add.text(300,100,"Data Values").setFontSize(20);
-        let codeTitle = this.add.text(500,100,"Code:").setFontSize(20);
 
         this.code1 = this.add.text(500,250,"Pointer = ");
         this.code2 = this.add.text(500,300,"Pointer* = ");
@@ -112,7 +109,6 @@ export default class Pointers2 extends Phaser.Scene{
         checkCode.on("pointerdown",this.checkAnswer,this);
 
         //Creates first pond and allows it to be clicked
-        let pond1 = this.add.text(150,125,"Pond 1");
         let rbfPond = new Pond("Pond 1",this.add.image(175,200,'CTF Pond'));
         rbfPond.image.setInteractive();
         rbfPond.image.on("pointerdown",()=>{
@@ -123,7 +119,6 @@ export default class Pointers2 extends Phaser.Scene{
         })
         
         //Creates the second pond and allows it to be clicked as an answer
-        let pond2 = this.add.text(150,275,"Pond 2");
         let pbfPond = new Pond("Pond 2",this.add.image(175,350,'BTF Pond'));
         pbfPond.image.setInteractive();
         pbfPond.image.on("pointerdown",()=>{
@@ -134,7 +129,6 @@ export default class Pointers2 extends Phaser.Scene{
         })
 
         //Creates the third pond and allows it to be clicked as an answer
-        let pond3 = this.add.text(150,425,"Pond 3");
         let miPond = new Pond("Pond 3",this.add.image(175,500,'RTF Pond'));
         miPond.image.setInteractive();
         miPond.image.on("pointerdown",()=>{
@@ -184,7 +178,7 @@ export default class Pointers2 extends Phaser.Scene{
         this.feedback.alpha=0;
     }
 
-    update(time: number, delta: number): void {
+    update(_time: number, _delta: number): void {
         if (this.counter===0){
             this.code2.setText("Pointer* = Reef triggerfish");
             this.code2lock = true;
