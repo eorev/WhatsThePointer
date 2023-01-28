@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import ScoreTracker from "../ScoreTracker";
+import { BackButton } from "../GlobalObjects";
 
 export default class InstructionsScene extends Phaser.Scene {
 
@@ -51,9 +52,10 @@ export default class InstructionsScene extends Phaser.Scene {
         this.count = 0;
         //list of questions and answers 
         this.questions = [
-            "Drag the Morish Idol into the pond"
+            "Drag the Morish Idol into the pond",
+            "Congratudations! You are now ready to\nexit and play the real game. Click the\ntop right X to go back to the menu"
         ]
-        this.answers = ["Moorish Idol"]
+        this.answers = ["Moorish Idol", "n/a"]
 
         //Create Background of level
         this.add.image(0,0,'Field').setOrigin(0,0);
@@ -115,7 +117,7 @@ export default class InstructionsScene extends Phaser.Scene {
             this.instruct.setText('Answer the first\nquestion in the\ntop left corner')
         });
         //changed style when hovering
-        let ixStyle = { font: "bold 50px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
+        let ixStyle = { font: "bold 50px Arial", fill: "#0xFF0000", boundsAlignH: "center", boundsAlignV: "middle" };
         let selectedixStyle = { font: "bold 50px Arial", fill: "#5271FF", boundsAlignH: "center", boundsAlignV: "middle" };
         ixButton.setStyle(ixStyle);
         ixButton.on('pointerover', () => {
@@ -144,13 +146,13 @@ export default class InstructionsScene extends Phaser.Scene {
         this.textBub.alpha=0;
         this.instruct.alpha=0;
             //this.instruct.setText('First, drag the \nMorish Idol into\n the pond.')
-            this.instruct.setTint(0xFF0000);
+            this.instruct.setTint(0xFFFFFF);
             this.instruct.setFontSize(20)
 
 
 
         //exit how to play button creation
-        let xButton = this.add.text(725, 25, 'X');
+        let xButton = this.add.text(725, 75, 'X');
 
         //allows user to click on the X
         xButton.setInteractive();
@@ -159,7 +161,7 @@ export default class InstructionsScene extends Phaser.Scene {
         });
 
         //changes the style of the X when hovered over
-        let xStyle = { font: "bold 50px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
+        let xStyle = { font: "bold 50px Arial", fill: "#0xff0000", boundsAlignH: "center", boundsAlignV: "middle" };
         let selectedXStyle = { font: "bold 50px Arial", fill: "#5271FF", boundsAlignH: "center", boundsAlignV: "middle" };
         xButton.setStyle(xStyle);
         xButton.on('pointerover', () => {
@@ -172,12 +174,6 @@ export default class InstructionsScene extends Phaser.Scene {
         //Create view of students code
         this.add.text(500,175,"Code:").setFontSize(40);
         this.code = this.add.text(500,225,"Pond = ").setFontSize(15);
-
-
-
-
-
-
 
     }
 
@@ -231,7 +227,7 @@ export default class InstructionsScene extends Phaser.Scene {
             this.feedback.alpha=1;
 
             //congrats message
-            this.feedback.setText("Congratulations, you \nset the variable \nto the correct value!")
+            this.feedback.setText("Congratulations, you \nset the variable \nto the correct value!\n\n Now, to reset the fish\nclick the 'reset fish'\nbutton in the top right.\nNext, close this popup\nand follow the instructions\n up top")
             this.feedback.setTint(0x00FF00);
             this.feedback.setFontSize(20);
             
@@ -244,10 +240,9 @@ export default class InstructionsScene extends Phaser.Scene {
                 this.popup.alpha=0;
                 close.destroy();
             
-            });
-            
+            });            
 
-            if (this.count<1){
+            if (this.count<2){
                 this.count++;
                 this.question.setText(this.questions[this.count])
             }
@@ -291,6 +286,7 @@ export default class InstructionsScene extends Phaser.Scene {
                 close.destroy();
             });
         }
+        
     }
 
     update() {
@@ -301,7 +297,7 @@ export default class InstructionsScene extends Phaser.Scene {
             //popup to click check code button
             this.textBub.alpha=1;
             this.instruct.alpha=1;
-            this.instruct.setText('Now, click on\n the "check code"\nbutton');
+            this.instruct.setText('Now, click on\n the "check code"\nbutton.');
         }     
         
         else if(Phaser.Geom.Intersects.RectangleToRectangle(this.pond.getBounds(),this.pbf.getBounds())){
@@ -320,5 +316,6 @@ export default class InstructionsScene extends Phaser.Scene {
             this.answer="";
         }
     }
+    
     
 }
