@@ -227,7 +227,7 @@ export default class InstructionsScene extends Phaser.Scene {
             this.feedback.alpha=1;
 
             //congrats message
-            this.feedback.setText("Congratulations, you \nset the variable \nto the correct value!\n\n Now, to reset the fish\nclick the 'reset fish'\nbutton in the top right.\nNext, close this popup\nand follow the instructions\n up top")
+            this.feedback.setText("Congratulations, you \nset the variable \nto the correct value!\n\n Now, to reset the fish\nclick the 'reset fish'\nbutton in the top right.\nNext, close this popup\nand follow the\ninstructions up top")
             this.feedback.setTint(0x00FF00);
             this.feedback.setFontSize(20);
             
