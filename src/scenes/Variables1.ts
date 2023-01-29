@@ -158,12 +158,14 @@ export default class Variables1 extends Phaser.Scene{
 
         var zone = this.add.zone(75, 300, 100, 100).setRectangleDropZone(125, 100);
 
-        this.input.on('drop',  (pointer: any, gameObject: any, dropZone: any) => {
+        this.input.on('drop',  (_pointer: any, gameObject: any, dropZone: any) => {
+
 
             this.mi.alpha=1;
             this.pbf.alpha=1;
             this.rbf.alpha=1;
 
+        if (dropZone === zone) {
             switch(gameObject.texture.key) {
                 case 'Moorish Idol':
                     this.pond.setTexture('MI Pond')
@@ -184,6 +186,7 @@ export default class Variables1 extends Phaser.Scene{
                     this.pond.setTexture('Pond')
                     break;
             }
+        }
 
             gameObject.alpha=0.35;
             
