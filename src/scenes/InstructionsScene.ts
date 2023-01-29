@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import ScoreTracker from "../ScoreTracker";
+import { BackButton } from "../GlobalObjects";
 
 export default class InstructionsScene extends Phaser.Scene {
 
@@ -24,6 +25,7 @@ export default class InstructionsScene extends Phaser.Scene {
     private dragObj: any;
 
     private splashSound!: Phaser.Sound.BaseSound;
+    private draggable!: Array<Phaser.GameObjects.Image>;
 
     constructor() {
         super('instructions')
@@ -176,7 +178,7 @@ export default class InstructionsScene extends Phaser.Scene {
     }
 
 
-    startDrag(_pointer: Phaser.Input.Pointer, targets: Phaser.GameObjects.GameObject[]){
+    startDrag(pointer: Phaser.Input.Pointer, targets: Phaser.GameObjects.GameObject[]){
         this.input.off('pointerdown', this.startDrag, this);
         this.dragObj=targets[0];
         this.input.on('pointermove', this.doDrag, this);

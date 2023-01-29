@@ -2,6 +2,10 @@
 
 > Pointer Learning Game made with Phaser and Typescript
 
+## Play the game
+
+[https://eorev.github.io/WhatsThePointer/](https://eorev.github.io/WhatsThePointer/) (hosted on github pages)
+
 ## How to run
 
 1. Clone the repo
