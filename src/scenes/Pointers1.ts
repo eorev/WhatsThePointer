@@ -47,6 +47,7 @@ export default class Pointers1 extends Phaser.Scene{
     private correctSound!: Phaser.Sound.BaseSound;
     private wrongSound!: Phaser.Sound.BaseSound;
     private nextLevelSound!: Phaser.Sound.BaseSound;
+    private muted!: MuteButton;
 
     constructor(){
         super('Pointers1');
