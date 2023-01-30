@@ -47,6 +47,7 @@ export default class Pointers1 extends Phaser.Scene{
     private correctSound!: Phaser.Sound.BaseSound;
     private wrongSound!: Phaser.Sound.BaseSound;
     private nextLevelSound!: Phaser.Sound.BaseSound;
+    private muted!: MuteButton;
 
     constructor(){
         super('Pointers1');
@@ -78,6 +79,8 @@ export default class Pointers1 extends Phaser.Scene{
         this.buttonSound = this.sound.add('button');
         this.wrongSound = this.sound.add('wrong');
         this.nextLevelSound = this.sound.add('nextLevel');
+        this.correctSound;
+        this.nextLevelSound;
 
         // ~ Evan
         //field background
