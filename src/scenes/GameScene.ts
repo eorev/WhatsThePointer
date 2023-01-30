@@ -18,6 +18,7 @@ export default class GameScene extends Phaser.Scene {
         //centers the image
         background.setOrigin(0, 0)
 
+<<<<<<< HEAD
         let buttonSound = this.sound.add('button');
 
         //creates a list of ponds displayed left to right that the player can click on
@@ -33,6 +34,8 @@ export default class GameScene extends Phaser.Scene {
         ponds.add(pond4);
         ponds.add(pond5);*/
 
+=======
+>>>>>>> 1a5c745aefcdb1ea17d7379a8880475f03269912
         let variables = this.add.text(300,200,"Variables");
         let pointers = this.add.text(300,400,"Pointers");
 
@@ -82,13 +85,6 @@ export default class GameScene extends Phaser.Scene {
 
         //add score display
         new ScoreDisplay(this, 25, 15)
-
-        //retired: score board
-        /*
-        let scoreText = this.add.text(16, 16, `Score: ${scoreTracker.getScore()}`, {
-        fontSize: '32px',
-        color: '#fff' })
-        */
 
     }
 

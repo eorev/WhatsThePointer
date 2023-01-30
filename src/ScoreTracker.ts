@@ -16,6 +16,9 @@ class ScoreTracker {
         return this.score;
     }
 
+    public setScore(score: number) {
+        this.score = score;
+    }
 }
 
 const scoreTracker = new ScoreTracker();

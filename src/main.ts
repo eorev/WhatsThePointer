@@ -7,7 +7,7 @@ import MenuScene from './scenes/MenuScene'
 // Variables game levels
 import Variables1 from './scenes/Variables1'
 import Variables2 from './scenes/Variables2'
-//import Variables3 from './scenes/Variables3'
+import Variables3 from './scenes/Variables3'
 
 // Pointers game levels
 import Pointers1 from './scenes/Pointers1'
@@ -24,7 +24,7 @@ const config: Phaser.Types.Core.GameConfig = {
 		height: 600,
 	},
 
-	scene: [MenuScene,GameScene,InstructionsScene,Pointers1,Pointers2,Pointers3,Variables1],
+	scene: [MenuScene,GameScene,InstructionsScene,Pointers1,Pointers2,Pointers3,Variables1, Variables2, Variables3],
 
 }
 
