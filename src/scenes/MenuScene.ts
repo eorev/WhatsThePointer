@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import MenuStyles from '../styles/MenuStyles'
 
 export default class MenuScene extends Phaser.Scene {
 	constructor() {
@@ -6,7 +7,7 @@ export default class MenuScene extends Phaser.Scene {
 	}
 
 	preload() {
-		this.load.image('background', 'https://picsum.photos/800/600')
+		this.load.image('background', 'assets/game_background.jpg')
 	}
 
 	create() {
@@ -15,25 +16,26 @@ export default class MenuScene extends Phaser.Scene {
 		background.setOrigin(0, 0)
 
 		//creates title and centers it above the menu buttons
-		let title = this.add.text(200, 200, "What's the Point(er)?");
-		title.setStyle({ font: "bold 64px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" });
-		title.setOrigin(0, 0);
+		let title = this.add.text(MenuStyles.title.x, MenuStyles.title.y, MenuStyles.title.text);
+		title.setStyle(MenuStyles.title.style);
 
 		//creates the menu buttons
 		let menuButtons = this.add.group();
-		let playButton = this.add.text(200, 300, 'Play');
-		let optionsButton = this.add.text(200, 350, 'Options');
-		let exitButton = this.add.text(200, 400, 'Exit');
+    
+		let playButton = this.add.text(MenuStyles.menuButtons.x, MenuStyles.menuButtons.y, 'Play');
+		let instructionsButton = this.add.text(MenuStyles.menuButtons.x, MenuStyles.menuButtons.y + 50, 'How to Play');
+		let exitButton = this.add.text(MenuStyles.menuButtons.x, MenuStyles.menuButtons.y + 100, 'Exit');
+    
 		menuButtons.add(playButton); 
-		menuButtons.add(optionsButton); 
+		menuButtons.add(instructionsButton);
 		menuButtons.add(exitButton);
 
 		//changes the style of the selected button to show it is selected
 		let selectedButton = 0;
-		let buttonStyle = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
-		let selectedButtonStyle = { font: "bold 32px Arial", fill: "#5271FF", boundsAlignH: "center", boundsAlignV: "middle" };
+		let buttonStyle = MenuStyles.menuButtons.style;
+		let selectedButtonStyle = MenuStyles.selectedButtonStyle;
 		playButton.setStyle(selectedButtonStyle);
-		optionsButton.setStyle(buttonStyle);
+		instructionsButton.setStyle(buttonStyle);
 		exitButton.setStyle(buttonStyle);
 
 		//changes the selected button when the up or down arrow keys are pressed
@@ -52,17 +54,17 @@ export default class MenuScene extends Phaser.Scene {
 			switch (selectedButton) {
 				case 0:
 					playButton.setStyle(selectedButtonStyle);
-					optionsButton.setStyle(buttonStyle);
+					instructionsButton.setStyle(buttonStyle);
 					exitButton.setStyle(buttonStyle);
 					break;
 				case 1:
 					playButton.setStyle(buttonStyle);
-					optionsButton.setStyle(selectedButtonStyle);
+					instructionsButton.setStyle(selectedButtonStyle);
 					exitButton.setStyle(buttonStyle);
 					break;
 				case 2:
 					playButton.setStyle(buttonStyle);
-					optionsButton.setStyle(buttonStyle);
+					instructionsButton.setStyle(buttonStyle);
 					exitButton.setStyle(selectedButtonStyle);
 					break;
 			}
@@ -76,7 +78,7 @@ export default class MenuScene extends Phaser.Scene {
 						this.scene.start('game');
 						break;
 					case 1:
-						this.scene.start('options');
+						this.scene.start('instructions');
 						break;
 					case 2:
 						this.scene.start('exit');
@@ -89,7 +91,7 @@ export default class MenuScene extends Phaser.Scene {
 		playButton.setInteractive();
 		playButton.on('pointerover', () => {
 			playButton.setStyle(selectedButtonStyle);
-			optionsButton.setStyle(buttonStyle);
+			instructionsButton.setStyle(buttonStyle);
 			exitButton.setStyle(buttonStyle);
 			selectedButton = 0;
 		});
@@ -98,33 +100,34 @@ export default class MenuScene extends Phaser.Scene {
 			this.scene.start('game');
 		});
 		
-		optionsButton.setInteractive();
-		optionsButton.on('pointerover', () => {
+
+		instructionsButton.setInteractive();
+		instructionsButton.on('pointerover', () => {
 			playButton.setStyle(buttonStyle);
-			optionsButton.setStyle(selectedButtonStyle);
+			instructionsButton.setStyle(selectedButtonStyle);
 			exitButton.setStyle(buttonStyle);
-			selectedButton = 1;
+			selectedButton = 2;
 		});
 
-		optionsButton.on('pointerdown', () => {
-			this.scene.start('options');
+		instructionsButton.on('pointerdown', () => {
+			this.scene.start('instructions');
 		});
 
 		exitButton.setInteractive();
 		exitButton.on('pointerover', () => {
 			playButton.setStyle(buttonStyle);
-			optionsButton.setStyle(buttonStyle);
+			instructionsButton.setStyle(buttonStyle);
 			exitButton.setStyle(selectedButtonStyle);
-			selectedButton = 2;
+			selectedButton = 3;
 		});
 
 		exitButton.on('pointerdown', () => {
-			this.scene.start('exit');
+			window.close();
 		});
 
 	}
 
 	update() {
-
+		
 	}
 }
