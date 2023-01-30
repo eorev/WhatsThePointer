@@ -20,13 +20,13 @@ export default class EndScene extends Phaser.Scene {
 
         variables.setInteractive();
         variables.on("pointerdown",()=>{
-            this.scene.start('game');
+            this.scene.start('Pointers1');
         })
         variables.setFontSize(40)
 
         pointers.setInteractive();
         pointers.on('pointerdown',()=>{
-            window.close();
+            this.scene.start('game');
         })
         pointers.setFontSize(40);
 

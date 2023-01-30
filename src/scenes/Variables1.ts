@@ -186,6 +186,8 @@ export default class Variables1 extends Phaser.Scene{
                     this.pond.setTexture('Pond')
                     break;
             }
+            if(!this.muted.isMuted())
+                this.splashSound.play();
         }
 
             gameObject.alpha=0.35;

@@ -107,16 +107,18 @@ export default class Variables3 extends Phaser.Scene{
         this.input.setDraggable(this.pbf);
         this.input.setDraggable(this.rbf);
 
-        this.input.on('drag', (pointer: any, gameObject: {x: number, y: number, depth: number}, dragX: number, dragY: number) => {
-            pointer;
+
+        this.input.on('drag', (_pointer: any, gameObject: {x: number, y: number, depth: number}, dragX: number, dragY: number) => {
+
             gameObject.x = dragX;
             gameObject.y = dragY;
             gameObject.depth = 1;
         });
 
         //when the fish is on top of the pond it plays the splash sound
-        this.input.on('dragend', (pointer: any, gameObject: {x: number, y: number, depth: number, texture: any}) => {
-            pointer;
+
+        this.input.on('dragend', (_pointer: any, gameObject: {x: number, y: number, depth: number, texture: any}) => {
+
             if(gameObject.x > 50 && gameObject.x < 100 && gameObject.y > 275 && gameObject.y < 325){
                 gameObject.depth = 0;
             }
@@ -166,8 +168,8 @@ export default class Variables3 extends Phaser.Scene{
 
         var zone1 = this.add.zone(75, 200, 100, 100).setRectangleDropZone(125, 100);
 
-        this.input.on('drop',  (pointer: any, gameObject: any, dropZone: any) => {
-            pointer;
+        this.input.on('drop',  (_pointer: any, gameObject: any, dropZone: any) => {
+
 
             this.mi.alpha=1;
             this.pbf.alpha=1;
@@ -201,13 +203,14 @@ export default class Variables3 extends Phaser.Scene{
                         this.code1.setText(`Pond1 = `);
                         break;
                 }
+                if(!this.muted.isMuted())
+                    this.splashSound.play();
         }
 
         var zone2 = this.add.zone(75, 400, 100, 100).setRectangleDropZone(125, 100);
 
-        this.input.on('drop',  (pointer: any, gameObject: any, dropZone: any) => {
-            pointer;
-            
+        this.input.on('drop',  (_pointer: any, gameObject: any, dropZone: any) => {
+
             this.mi.alpha=1;
             this.pbf.alpha=1;
             this.rbf.alpha=1;
@@ -240,7 +243,9 @@ export default class Variables3 extends Phaser.Scene{
                         this.code2.setText(`Pond2 = `);
                         break;
                 }
-        }
+                if(!this.muted.isMuted())
+                    this.splashSound.play();
+            }
 
             gameObject.alpha=0.35;
             
@@ -295,7 +300,7 @@ export default class Variables3 extends Phaser.Scene{
             else{
                 if(!this.muted.isMuted())
                     this.nextLevelSound.play();
-                this.scene.start('game');
+                this.scene.start('end');
 
         }}
         else if (this.answer === ""){
