@@ -176,7 +176,10 @@ export default class InstructionsScene extends Phaser.Scene {
     }
 
 
-    startDrag(_pointer: Phaser.Input.Pointer, targets: Phaser.GameObjects.GameObject[]){
+
+    startDrag(pointer: Phaser.Input.Pointer, targets: Phaser.GameObjects.GameObject[]){
+        pointer;
+
         this.input.off('pointerdown', this.startDrag, this);
 this.dragObj=targets[0];
         this.input.on('pointermove', this.doDrag, this);

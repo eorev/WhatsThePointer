@@ -72,9 +72,9 @@ export default class Variables3 extends Phaser.Scene{
             "Make the variable Pond1 hold the \nRacoon Butterflyfish"
         ]
         this.answers = [
-            "Moorish IdolPond1",
-            "Pennant ButterflyfishPond2",
-            "Racoon ButterflyfishPond1"
+            "Moorish Idol in Pond1",
+            "Pennant Butterflyfish in Pond2",
+            "Racoon Butterflyfish in Pond1"
         ]
 
         //Create Background of level
@@ -107,14 +107,18 @@ export default class Variables3 extends Phaser.Scene{
         this.input.setDraggable(this.pbf);
         this.input.setDraggable(this.rbf);
 
+
         this.input.on('drag', (_pointer: any, gameObject: {x: number, y: number, depth: number}, dragX: number, dragY: number) => {
+
             gameObject.x = dragX;
             gameObject.y = dragY;
             gameObject.depth = 1;
         });
 
         //when the fish is on top of the pond it plays the splash sound
+
         this.input.on('dragend', (_pointer: any, gameObject: {x: number, y: number, depth: number, texture: any}) => {
+
             if(gameObject.x > 50 && gameObject.x < 100 && gameObject.y > 275 && gameObject.y < 325){
                 gameObject.depth = 0;
             }
@@ -166,6 +170,7 @@ export default class Variables3 extends Phaser.Scene{
 
         this.input.on('drop',  (_pointer: any, gameObject: any, dropZone: any) => {
 
+
             this.mi.alpha=1;
             this.pbf.alpha=1;
             this.rbf.alpha=1;
@@ -177,21 +182,21 @@ export default class Variables3 extends Phaser.Scene{
                         gameObject.x = 275;
                         gameObject.y = 150;
                         this.code1.setText(`Pond1 = ${gameObject.texture.key}`);
-                        this.answer = `${gameObject.texture.key}` + "Pond1";
+                        this.answer = `${gameObject.texture.key}` + " in " + "Pond1";
                         break;
                     case 'Pennant Butterflyfish':
                         this.pond1.setTexture('PBF Pond')
                         gameObject.x = 275;
                         gameObject.y = 300;
                         this.code1.setText(`Pond1 = ${gameObject.texture.key}`);
-                        this.answer = `${gameObject.texture.key}` + "Pond1";
+                        this.answer = `${gameObject.texture.key}` + " in " + "Pond1";
                         break;
                     case 'Racoon Butterflyfish':
                         this.pond1.setTexture('RBF Pond')
                         gameObject.x = 275;
                         gameObject.y = 450;
                         this.code1.setText(`Pond1 = ${gameObject.texture.key}`);
-                        this.answer = `${gameObject.texture.key}` + "Pond1";
+                        this.answer = `${gameObject.texture.key}` + " in " + "Pond1";
                     break;
                     default:
                         this.pond1.setTexture('Pond')
@@ -205,6 +210,7 @@ export default class Variables3 extends Phaser.Scene{
         var zone2 = this.add.zone(75, 400, 100, 100).setRectangleDropZone(125, 100);
 
         this.input.on('drop',  (_pointer: any, gameObject: any, dropZone: any) => {
+
             this.mi.alpha=1;
             this.pbf.alpha=1;
             this.rbf.alpha=1;
@@ -216,21 +222,21 @@ export default class Variables3 extends Phaser.Scene{
                         gameObject.x = 275;
                         gameObject.y = 150;
                         this.code2.setText(`Pond2 = ${gameObject.texture.key}`);
-                        this.answer = `${gameObject.texture.key}` + "Pond2";
+                        this.answer = `${gameObject.texture.key}` + " in " + "Pond2";
                         break;
                     case 'Pennant Butterflyfish':
                         this.pond2.setTexture('PBF Pond')
                         gameObject.x = 275;
                         gameObject.y = 300;
                         this.code2.setText(`Pond2 = ${gameObject.texture.key}`);
-                        this.answer = `${gameObject.texture.key}` + "Pond2";
+                        this.answer = `${gameObject.texture.key}` + " in " + "Pond2";
                         break;
                     case 'Racoon Butterflyfish':
                         this.pond2.setTexture('RBF Pond')
                         gameObject.x = 275;
                         gameObject.y = 450;
                         this.code2.setText(`Pond2 = ${gameObject.texture.key}`);
-                        this.answer = `${gameObject.texture.key}` + "Pond2";
+                        this.answer = `${gameObject.texture.key}` + " in " + "Pond2";
                     break;
                     default:
                         this.pond2.setTexture('Pond')

@@ -41,7 +41,6 @@ export default class Pointers1 extends Phaser.Scene{
     private popup!: Phaser.GameObjects.Image;
 
     private scoreboard!: ScoreDisplay;
-    private muted!: MuteButton;
 
     private splashSound!: Phaser.Sound.BaseSound;
     private buttonSound!: Phaser.Sound.BaseSound;
@@ -115,6 +114,7 @@ export default class Pointers1 extends Phaser.Scene{
         this.scoreboard = new ScoreDisplay(this, 15, 80)
 
         //Address and Data Value Title
+
         this.code1 = this.add.text(500,250,"Pointer = ");
         this.code2 = this.add.text(500,300,"Pointer* = ");
 
@@ -123,6 +123,7 @@ export default class Pointers1 extends Phaser.Scene{
         checkCode.on("pointerdown",this.checkAnswer,this)
 
         //Creates first pond and allows it to be clicked
+
         let rbfPond = new Pond("Pond 1",this.add.image(175,200,'RBF Pond'));
         rbfPond.image.setInteractive();
         rbfPond.image.on("pointerdown",()=>{
@@ -135,6 +136,7 @@ export default class Pointers1 extends Phaser.Scene{
         })
         
         //Creates the second pond and allows it to be clicked as an answer
+
         let pbfPond = new Pond("Pond 2",this.add.image(175,350,'PBF Pond'));
         pbfPond.image.setInteractive();
         pbfPond.image.on("pointerdown",()=>{
@@ -147,6 +149,7 @@ export default class Pointers1 extends Phaser.Scene{
         })
 
         //Creates the third pond and allows it to be clicked as an answer
+
         let miPond = new Pond("Pond 3",this.add.image(175,500,'MI Pond'));
         miPond.image.setInteractive();
         miPond.image.on("pointerdown",()=>{
@@ -210,7 +213,9 @@ export default class Pointers1 extends Phaser.Scene{
         this.feedback.depth = 2
     }
 
+
     update(_time: number, _delta: number): void {
+
         if (this.counter===0){
             this.code2.setText("Pointer* = Moorish Idol");
             this.code2lock = true;
