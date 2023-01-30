@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { BackButton, MuteButton, ScoreDisplay } from "../GlobalObjects";
+import { MuteButton, ScoreDisplay } from "../GlobalObjects";
 
 export default class EndScene extends Phaser.Scene {
     constructor() {
