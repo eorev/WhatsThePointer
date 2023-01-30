@@ -3,7 +3,7 @@
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
-	"homepage": "https://eorev.github.io/WhatsThePointer/",
+	"homepage": "https://github.com/eorev/WhatsThePointer",
 	"scripts": {
 		"start": "vite",
 		"build": "tsc && vite build",
