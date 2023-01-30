@@ -287,15 +287,15 @@ export default class Pointers1 extends Phaser.Scene{
             close.on("pointerdown",()=>{
                 this.feedback.alpha=0;
                 this.popup.alpha=0;
-                if(!this.muted.isMuted())
-                    this.buttonSound.play();
+                //if(!this.muted.isMuted())
+                    //this.buttonSound.play();
                 close.destroy();
             });
         }
         else{
             this.scoreboard.deductScore();
-            if(!this.muted.isMuted())
-                this.wrongSound.play();
+            //if(!this.muted.isMuted())
+                //this.wrongSound.play();
             //Display feedback window
             this.popup.alpha=1;
             this.feedback.alpha=1;
@@ -316,8 +316,8 @@ export default class Pointers1 extends Phaser.Scene{
             close.on("pointerdown",()=>{
                 this.feedback.alpha=0;
                 this.popup.alpha=0;
-                if(!this.muted.isMuted())
-                    this.buttonSound.play();
+                //if(!this.muted.isMuted())
+                    //this.buttonSound.play();
                 close.destroy();
             });
         }
